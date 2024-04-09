@@ -17,12 +17,13 @@ app.use(cookieParser());
 
 //routes import
 import userRoutes from "./routes/user.routes";
-
+import aiRouter from "./routes/ai.routes";
 //routes declaration
 // app.use("/", (_req, res) => {
 //     res.send("Welcome to the Express TS Boilerplate");
 //     }
 // );
 app.use("/image-morph/api/v1/user", userRoutes);
+app.use("/image-morph/api/v1/image", aiRouter);
 
 export { app };
