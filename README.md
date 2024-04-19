@@ -1,16 +1,7 @@
-<h1 align="center">
- ImageMorph
-</h1>
+<h1 align="center">ImageMorph</h1> 
 
-
-<div align="center">
-  
 ## Generate your imagination 
-![TypeScript](https://img.shields.io/badge/typetcript-%2320232a.svg?style=for-the-badge&logo=typescript&logoColor=%fff)
-![Node.js](https://img.shields.io/badge/Node.js-%2320232a?style=for-the-badge&logo=node.js&logoColor=43853D)
-![Express.js](https://img.shields.io/badge/express-%2320232a.svg?style=for-the-badge&logo=express&logoColor=%23F7DF1E)
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-</div>
 
 ## About 💧
 ImageMorph is a ...
