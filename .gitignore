@@ -2,6 +2,7 @@
 Server/*.env
 *.local
 Server/node_modules/
+Server/public/temp/
 /node_modules
 
 # Logs

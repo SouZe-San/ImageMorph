@@ -4,21 +4,15 @@ import { User } from "../models/user.model";
 import { Request,Response } from "express";
 import { Types } from "mongoose";
 import { resStatus } from "../utils/responseStatus";
+import { NUsers } from "./types";
+import { validationCheck, regexErrorMassage } from "../utils/regEX.utils";
 
-
-interface registerUser{
-    username: string;
-    fullName: string;
-    email: string;
-    password: string;
-}
-interface LoginUser{
-        username: string;
-        email: string;
-        password: string;
-    }
-
-
+/*
+  * Generate access token for user
+  * @param {Types.ObjectId} userId
+  * @returns {Promise<{accessToken: string}>}
+  * @throws {ApiError}
+*/  
 //! Generate access token for user
 const generateAccess = async (userId:Types.ObjectId) => {
   try {
@@ -40,18 +34,41 @@ const generateAccess = async (userId:Types.ObjectId) => {
   }
 };
 
+/*
+  * Register a new user -
+  * @param {Request} req - { email: string, username: string, password: string, fullName: string}
+  * @param {Response} res
+  * @returns {Promise<void>}
+  * @throws {ApiError}
+*/
+
 //! Register a new user
 const userRegister = async (req:Request, res:Response) => {
 
   try {
 
     // collect the data from the request body
-    const { email, username, password, fullName}:registerUser = req.body;
+    const { email, username, password, fullName}:NUsers.IRegisterUser = req.body;
 
     // check if any of the required fields are empty
     if ([username, email, fullName, password].some((field) => field?.trim() === "")) {
       throw new ApiError(resStatus.InvalidInput, "All fields are required , Some of them are empty");
     }
+
+    // Regex validation for the fields
+    if (!validationCheck(username,"username")) {
+      throw new ApiError(resStatus.InvalidInput, regexErrorMassage.username);
+    }
+    if (!validationCheck(fullName, "fullName")) {
+      throw new ApiError(resStatus.InvalidInput, regexErrorMassage.fullName);
+    }
+    if (!validationCheck(password, "password")) {
+      throw new ApiError(resStatus.InvalidInput, regexErrorMassage.password);
+    }
+    if (!validationCheck(email, "email")) {
+      throw new ApiError(resStatus.InvalidInput, regexErrorMassage.email);
+    }
+    
 
     // check if the user already exists
     const existedUser = await User.findOne({
@@ -97,23 +114,39 @@ const userRegister = async (req:Request, res:Response) => {
   }
 };
 
+
+/*
+  * Sign In a user
+  * @param {Request} req - { email: string, username: string, password: string}
+  * @param {Response} res
+  * @returns {Promise<void>}
+  * @throws {ApiError}
+*/
 //! Sign In a user
 const userLogIn = async (req:Request, res:Response) => {
   try {
 
     // collect the data from the request body
-    const { username, email, password }:LoginUser = req.body;
+    const { username, email, password }:NUsers.ILoginUser = req.body;
 
 
+    // check if any of the required fields are empty
     if ([username, email, password].some((field) => field?.trim() === "")) {
       throw new ApiError(resStatus.InvalidInput, "All fields are required , Some of them are empty");
     }
 
-    // check if any of the required fields are empty
-    if (!email || !password) {
-      throw new ApiError(resStatus.InvalidInput, "Email and Password are required");
+    // Regex validation for the fields
+    if (!validationCheck(username,"username")) {
+      throw new ApiError(resStatus.InvalidInput, regexErrorMassage.username);
+    }
+    if (!validationCheck(password, "password")) {
+      throw new ApiError(resStatus.InvalidInput, regexErrorMassage.password);
+    }
+    if (!validationCheck(email, "email")) {
+      throw new ApiError(resStatus.InvalidInput, regexErrorMassage.email);
     }
 
+    
     // check if the user exists
     const user = await User.findOne({
       $and: [{ username }, { email }],

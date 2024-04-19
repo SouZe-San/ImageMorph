@@ -3,10 +3,11 @@ import { ApiError } from "../utils/ApiError";
 import { Response,Request, NextFunction } from "express";
 import { resStatus } from "../utils/responseStatus";
 import jwt from "jsonwebtoken";
+import { NUser_model } from "../models/types";
 
 
 interface RequestWithUser extends Request {
-    user?: UserModel;
+    user?: NUser_model.IUserModel;
     }
 
 

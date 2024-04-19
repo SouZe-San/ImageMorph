@@ -16,9 +16,11 @@ interface GenerationResponse {
 const engineId = "stable-diffusion-v1-6";
 
 
-const text2imageConvert = async (_req: Request, res: Response) => {
+const text2imageConvert = async (req: Request, res: Response) => {
     const apiHost = process.env.STABILITY_API_HOST ;
     const apiKey = process.env.STABILITY_API_KEY;
+
+    const { prompt } = req.body;
     try {
         if (!apiKey) throw new ApiError(resStatus.BadGateway, "Missing Stability API key.");
 
@@ -32,7 +34,7 @@ const text2imageConvert = async (_req: Request, res: Response) => {
             body: JSON.stringify({
                 text_prompts: [
                     {
-                        text: "A lighthouse on a cliff",
+                        text:prompt,
                     },
                 ],
                 cfg_scale: 7,
@@ -51,7 +53,7 @@ const text2imageConvert = async (_req: Request, res: Response) => {
         const responseJSON = (await response.json()) as GenerationResponse;
 
         
-        const filePath = `${getDataFolderPath()}/image.png`
+        const filePath = `${getDataFolderPath()}/${Date.now()}.png`
         
             persistData(Buffer.from(responseJSON.artifacts[0].base64, "base64"),filePath)
             console.log(`Image generated successfully at ${filePath}`);
