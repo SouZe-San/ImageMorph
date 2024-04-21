@@ -1,0 +1,75 @@
+$btnBlurBg : #ffffff62;
+
+@mixin inner_roundedShaped($padding) {
+    padding: $padding;
+    background: $btnBlurBg;
+    backdrop-filter: blur(1.5rem);
+    border-radius: calc(7rem - .5rem);
+}
+
+
+@mixin activeLink {
+    background: $btnBlurBg;
+    font-weight: 700;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    height: var(--nav-height);
+    z-index: 100;
+
+    .border_nav {
+
+        padding: .5rem;
+        border-radius: 7rem;
+        border: 1px solid var(--border--color);
+
+        .main_nav {
+            font-size: 1.3rem;
+            gap: .2rem;
+
+            .active_NavLink {
+                @include activeLink;
+            }
+
+            .nav_item {
+                border-radius: 7rem;
+                padding: .5rem 1.4rem;
+                transition: all .3s ease-in-out;
+
+                &:hover {
+                    @include activeLink;
+
+                }
+            }
+        }
+
+    }
+
+    .auth_btn_section {
+        font-size: 1.3rem;
+        padding: 0.5rem;
+        border-radius: 7rem;
+        border: 1px solid var(--border--color);
+        height: 4rem;
+
+        .text {
+            // @include inner_roundedShaped(.7rem 3.5rem);
+        }
+
+        .middle_space {
+            width: 1.3rem;
+            height: 1rem;
+            background: $btnBlurBg;
+        }
+
+        .auth_icon {
+            // @include inner_roundedShaped(.7rem);
+        }
+
+    }
+}

@@ -1,0 +1,12 @@
+section {
+    z-index: 1;
+    height: 75%;
+
+    .hero_text {
+        font-size: 4rem;
+        font-weight: 700;
+        color: var(--highlight-color1);
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+}
