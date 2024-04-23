@@ -1,13 +1,14 @@
 // import React from 'react'
-import HeroSection from "../../components/Navbar/hero-section/HeroSection";
+import AboutSection from "../../components/about-section/AboutSection";
+import HeroSection from "../../components/hero-section/HeroSection";
 import "./home_style.scss";
 
 const Home = () => {
   return (
-    <main>
-      <div className="blurBg"></div>
+    <div>
       <HeroSection />
-    </main>
+      <AboutSection />
+    </div>
   );
 };
 

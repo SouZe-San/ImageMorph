@@ -8,7 +8,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--white-text-color);
   /* background-color: #13111c; */
 
   /* background-color: #242424; */
@@ -38,4 +38,5 @@ body {
   background: var(--primary-bg-color);
   width: 100vw;
   overflow-x: hidden;
+  font-family: "manrope", sans-serif;
 }

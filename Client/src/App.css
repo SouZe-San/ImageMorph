@@ -1,3 +1,52 @@
 .icon {
   width: 1.5em;
 }
+
+@font-face {
+  font-family: "Manrope";
+  src: url("../src/assets/fonts/Manrope-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Manrope_bold";
+  src: url("../src/assets/fonts/Manrope-SemiBold.woff2") format("woff2");
+}
+/* @font-face {
+  font-family: "NeueGrotesk_Ds";
+  src: url("../src/assets/fonts/Neue_Haas_Grotesk_DS.woff") format("woff");
+}
+@font-face {
+  font-family: "NeueGrotesk_Tx";
+  src: url("../src/assets/fonts/Neue_Haas_Grotesk_TXPro.woff") format("woff");
+} */
+@font-face {
+  font-family: "usually";
+  src: url("../src/assets/fonts/Usually-font.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GalleryModern";
+  src: url("../src/assets/fonts/GalleryModern.woff") format("woff");
+}
+
+/* Special Card Head-font */
+@font-face {
+  font-family: "Romance";
+  src: url("../src/assets/fonts/RomanceLogicDemo-Wy8BE.woff") format("woff");
+}
+/* This wil be the text font for Home page */
+@font-face {
+  font-family: "NeueMachina";
+  src: url("../src/assets/fonts/NeueMachina-Regular.woff") format("woff");
+}
+@font-face {
+  font-family: "NeueMachina_bold";
+  src: url("../src/assets/fonts/NeueMachina-Ultrabold.woff") format("woff");
+}
+
+.card_heading_font {
+  font-family: "Romance", sans-serif;
+}
+
+.square_brackets {
+  color: var(--highlight-color1);
+}

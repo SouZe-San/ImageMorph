@@ -1,0 +1,223 @@
+section#home {
+    width: 100vw;
+    height: 110vh;
+    padding-top: calc(var(--nav-height) + 6rem);
+
+    background: url('../../assets/images/background/bg004.jpg') no-repeat center top fixed;
+
+    background-size: cover;
+
+
+    .blurBg {
+        width: inherit;
+        height: inherit;
+        backdrop-filter: blur(1.5rem) contrast(0.9);
+        position: absolute;
+        top: 0;
+        // second Style 
+        // backdrop-filter: blur(1.6rem);
+        // background: #0a180f6e;
+    }
+
+
+    main {
+        position: relative;
+
+        z-index: 1;
+
+        .mainSection {
+            .small_quote {
+                font-family: "NeueMachina", sans-serif;
+                width: 22%;
+                padding: 0px 10px;
+
+                >span.square_brackets {
+                    font-size: 4rem;
+
+                    &:first-child {
+                        top: -40%;
+                        left: -5%;
+                    }
+
+                    &:last-child {
+                        bottom: -30%;
+                        right: -3%;
+
+                    }
+                }
+
+                p {
+                    span {
+                        line-height: 1;
+                    }
+
+                    line-height: 2;
+                    font-size: 1.05rem;
+                }
+            }
+
+            .hero_heading {
+                font-size: 5rem;
+                font-weight: 700;
+
+                h1:not(:first-child) {
+                    font-family: "NeueMachina", sans-serif;
+                }
+
+                h1 {
+                    >span.product_name {
+                        font-size: 5.5rem;
+
+                        span {
+                            color: var(--highlight-color2);
+                            font-size: 4rem;
+                            font-family: "usually", sans-serif;
+                        }
+                    }
+
+                    &:nth-child(3) {
+                        margin-left: 10rem;
+
+                        span {
+                            font-size: 2.5rem;
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
+    .plusBtn {
+        position: relative;
+        padding-top: 15vh;
+        z-index: 1;
+
+        .puls {
+
+            border-radius: 50%;
+            aspect-ratio: 1;
+            width: 7rem;
+            background: var(--white-text-color);
+            color: var(--dark-black);
+
+            >span {
+                position: absolute;
+                width: inherit;
+                aspect-ratio: 1;
+                border-radius: inherit;
+                opacity: .5;
+                background: rgba(255, 255, 255, 0.508);
+                animation: pulsAnimation 4s ease-out infinite;
+
+
+
+                &:nth-child(1) {
+                    animation-delay: 0s;
+                }
+
+                &:nth-child(2) {
+                    animation-delay: 1.5s;
+                }
+            }
+
+            .btn {
+
+                width: inherit;
+                aspect-ratio: 1;
+
+                h1 {
+
+                    font-family: "NeueMachina", sans-serif;
+                    line-height: 1.1;
+
+                    span {
+                        font-family: "NeueMachina_bold", sans-serif;
+                        font-size: 2.5rem;
+                    }
+
+                    &:first-child {
+                        transform: translate(13%, 35%);
+                    }
+
+                    &:last-child {
+                        text-align: end;
+                        transform: translate(-16%, 15%);
+                    }
+                }
+            }
+        }
+    }
+
+    .scroll_section {
+        position: relative;
+
+        img {
+            width: 3rem;
+            height: 3rem;
+            animation: arrowJumping 1.5s linear infinite;
+        }
+
+        h1 {
+            font-family: "NeueMachina_bold", sans-serif;
+            font-weight: bold;
+        }
+    }
+}
+
+
+@keyframes pulsAnimation {
+
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
+}
+
+@keyframes arrowJumping {
+
+    0% {
+        transform: translateY(-10%);
+    }
+
+    12% {
+        transform: translateY(13.56%);
+    }
+
+    24% {
+        transform: translateY(38.01%);
+    }
+
+    36% {
+
+        transform: translateY(15.02%);
+    }
+
+    54% {
+        transform: translateY(39.37%);
+    }
+
+    74% {
+        transform: translateY(33.75%);
+    }
+
+    82% {
+        transform: translateY(39.34%);
+    }
+
+    92% {
+        transform: translateY(38.46%);
+    }
+
+    96% {
+        transform: translateY(40%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+
+
+
+}

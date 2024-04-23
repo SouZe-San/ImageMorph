@@ -8,16 +8,19 @@ $btnBlurBg : #ffffff62;
 }
 
 
-@mixin activeLink {
-    background: $btnBlurBg;
-    font-weight: 700;
+.innerPadded_btn {
+    border-radius: 7rem;
+    // padding: .5rem 1.4rem;
+    padding: .8rem 1.4rem;
 }
 
 nav {
+    font-size: 1.3rem;
+    font-family: "Manrope", sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
+    position: absolute;
     width: 100vw;
     height: var(--nav-height);
     z-index: 100;
@@ -29,20 +32,21 @@ nav {
         border: 1px solid var(--border--color);
 
         .main_nav {
-            font-size: 1.3rem;
+            // font-size: 1.3rem;
             gap: .2rem;
 
             .active_NavLink {
-                @include activeLink;
+                background: $btnBlurBg;
+                font-family: "Manrope_bold", sans-serif;
             }
 
             .nav_item {
-                border-radius: 7rem;
-                padding: .5rem 1.4rem;
+                // border-radius: 7rem;
+                // padding: .5rem 1.4rem;
                 transition: all .3s ease-in-out;
 
                 &:hover {
-                    @include activeLink;
+                    background: $btnBlurBg;
 
                 }
             }
@@ -50,25 +54,73 @@ nav {
 
     }
 
+
+    .middle_space {
+        >span {
+            background: #6BAD97FA;
+            width: 4px;
+            position: absolute;
+            height: 50%;
+
+            &:nth-child(1) {
+
+                left: -3px;
+                top: -2px;
+                border-top-right-radius: 3px;
+            }
+
+            &:nth-child(2) {
+
+                left: -3px;
+                bottom: -2px;
+                border-bottom-right-radius: 3px;
+            }
+
+            &:nth-child(3) {
+                border-top-left-radius: 3px;
+                right: -3px;
+                top: -2px;
+            }
+
+            &:nth-child(4) {
+                border-bottom-left-radius: 3px;
+                right: -3px;
+                bottom: -2px;
+            }
+        }
+    }
+
     .auth_btn_section {
-        font-size: 1.3rem;
+
         padding: 0.5rem;
         border-radius: 7rem;
         border: 1px solid var(--border--color);
-        height: 4rem;
 
         .text {
-            // @include inner_roundedShaped(.7rem 3.5rem);
+            background: $btnBlurBg;
+            font-weight: 600;
+            // padding: .5rem 2.4rem;
+            padding: 0.8rem 3rem;
+            font-family: "Manrope_bold", sans-serif;
         }
 
         .middle_space {
-            width: 1.3rem;
-            height: 1rem;
+            width: .7rem;
+            aspect-ratio: 1/2;
             background: $btnBlurBg;
         }
 
         .auth_icon {
-            // @include inner_roundedShaped(.7rem);
+            padding: .8rem;
+            border-radius: 7rem;
+            transition: all .3s ease-in-out;
+
+            .icon {
+                width: 1.2em;
+            }
+
+
+            background: $btnBlurBg;
         }
 
     }

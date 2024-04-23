@@ -5,6 +5,7 @@ Server/node_modules/
 Server/public/temp/
 /node_modules
 
+
 # Logs
 logs
 *.log
