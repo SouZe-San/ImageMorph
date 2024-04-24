@@ -1,0 +1,59 @@
+.errorPage_section {
+    background: rgb(20, 47, 29);
+    background: url(../../assets/images/background/grid02.svg) no-repeat center center, linear-gradient(45deg, #142f1d 18%, #0c2414 37%, #000000 100%);
+    background-size: cover;
+    mask-image: linear-gradient(to bottom, #0000, black 21%);
+
+
+    h1.text_404 {
+
+        font-size: 7rem;
+        line-height: 1;
+        position: absolute;
+        font-family: "NeueMachina";
+        -webkit-text-fill-color: transparent;
+        background: linear-gradient(to right, rgb(60, 60, 60), var(--highlight-color2), #505050) padding-box text;
+        color: unset;
+
+        &:nth-child(1) {
+            left: 15%;
+            translate: 15% 0%;
+            top: 15%;
+
+        }
+
+        &:nth-child(2) {
+            bottom: 25%;
+            transform: rotate(-90deg);
+            left: 2%;
+
+        }
+
+        &:nth-child(3) {
+            right: -2%;
+            top: 30%;
+        }
+
+        &:nth-child(4) {
+            bottom: 5%;
+            right: 18%;
+        }
+    }
+
+    .circle {
+        width: 20rem;
+        aspect-ratio: 1;
+        background: #0c2414;
+        border-radius: 50%;
+        border: 2px solid var(--border--color);
+        font-family: "GalleryModern";
+        cursor: pointer;
+
+        >h1 {
+            text-align: center;
+            font-size: 2rem;
+            line-height: 1;
+
+        }
+    }
+}

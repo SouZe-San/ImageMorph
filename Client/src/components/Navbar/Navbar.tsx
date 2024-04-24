@@ -1,6 +1,8 @@
 // import React from 'react'
 import "./nav_style.scss";
 import userIcon from "../../assets/icons/user-icon01.svg";
+
+import bg from "../../assets/images/Nav-svg/btn-bg.svg";
 const Navbar = () => {
   const navItems = [
     { name: "Home", link: "/" },
@@ -27,18 +29,17 @@ const Navbar = () => {
         </div>
       </div>
       <div className="auth_btn_section flex items-center ">
-        <div className="text innerPadded_btn">
-          <span>Become A Member</span>
-        </div>
-        <div className="middle_space relative">
+        <div className="text innerPadded_btn">Become A Member</div>
+        {/* <div className="middle_space relative">
           <span className="left_top"></span>
           <span className="left_bottom"></span>
           <span className="right_top"></span>
           <span className="right_bottom"></span>
-        </div>
+        </div> */}
         <div className="auth_icon ">
           <img src={userIcon} className="icon" loading="lazy" alt="Icon" />
         </div>
+        <img src={bg} className="absolute -z-[1]" alt="" />
       </div>
     </nav>
   );
