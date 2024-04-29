@@ -20,13 +20,14 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: var(--nav-height);
     z-index: 100;
 
     .border_nav {
 
+        backdrop-filter: blur(.6rem);
         padding: .5rem;
         border-radius: 7rem;
         border: 1px solid var(--border--color);
@@ -43,10 +44,25 @@ nav {
             .nav_item {
                 // border-radius: 7rem;
                 // padding: .5rem 1.4rem;
-                transition: all .3s ease-in-out;
+                position: relative;
+                overflow: hidden;
+
+                &::before {
+                    transition: width .3s ease-in-out;
+                    content: " ";
+                    position: absolute;
+                    width: 0%;
+                    height: 100%;
+                    background: $btnBlurBg;
+                    top: 0;
+                    left: 0;
+                    z-index: -1;
+                }
 
                 &:hover {
-                    background: $btnBlurBg;
+                    &::before {
+                        width: 100%;
+                    }
 
                 }
             }
@@ -55,43 +71,9 @@ nav {
     }
 
 
-    .middle_space {
-        >span {
-            background: #6BAD97FA;
-            //#686F6A
-            width: 4px;
-            position: absolute;
-            height: 50%;
-
-            &:nth-child(1) {
-
-                left: -3px;
-                top: -2px;
-                border-top-right-radius: 3px;
-            }
-
-            &:nth-child(2) {
-
-                left: -3px;
-                bottom: -2px;
-                border-bottom-right-radius: 3px;
-            }
-
-            &:nth-child(3) {
-                border-top-left-radius: 3px;
-                right: -3px;
-                top: -2px;
-            }
-
-            &:nth-child(4) {
-                border-bottom-left-radius: 3px;
-                right: -3px;
-                bottom: -2px;
-            }
-        }
-    }
 
     .auth_btn_section {
+        backdrop-filter: blur(.6rem);
         gap: 1rem;
         padding: 0.5rem;
         border-radius: 7rem;
@@ -114,11 +96,6 @@ nav {
             font-family: "Manrope_bold", sans-serif;
         }
 
-        // .middle_space {
-        //     width: .7rem;
-        //     aspect-ratio: 1/2;
-        //     background: $btnBlurBg;
-        // }
 
         .auth_icon {
             padding: .8rem;

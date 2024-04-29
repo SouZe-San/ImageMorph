@@ -1,0 +1,119 @@
+.about_section {
+    padding-top: calc(var(--nav-height) - 2rem);
+
+    background: linear-gradient(45deg, #0e1f14 18%, var(--primary-bg-color) 37%, #000 100%);
+
+    >header {
+        font-size: 5.34em;
+        line-height: 1.2;
+
+        h1:nth-child(1) {
+            text-transform: uppercase;
+            color: var(--highlight-color1);
+            font-family: "NeueMachina", sans-serif;
+        }
+
+        h1:nth-child(2) {
+            // text-transform: uppercase;
+            color: var(--white-text-color);
+            font-family: "Romance", sans-serif;
+        }
+    }
+
+
+    .card_section {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: .5rem;
+        padding: .5rem 1rem 0 0;
+    }
+}
+
+.card {
+    aspect-ratio: 2/2.05;
+    position: relative;
+    border: 1px solid #37ff0f16;
+    padding: 2rem 2rem;
+    border-radius: 10px;
+    background: rgba(75, 75, 75, 0.05);
+    transition: border 0.27s ease-in-out;
+    backdrop-filter: blur(2rem);
+    --blob-size: 200px;
+
+    &:hover {
+        // background: #2f2f2f;
+        border: 1px solid #14ff0036;
+
+    }
+
+    >.blob {
+        width: var(--blob-size);
+        aspect-ratio: 1;
+        left: calc(50% - calc(var(--blob-size)/2));
+        filter: blur(40px);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 300ms 300ms linear;
+    }
+
+    >.fakeBlob {
+        visibility: hidden;
+        z-index: -1;
+        height: 100%;
+    }
+
+    .specialStyle {
+        background: #104d14;
+
+        border-radius: 10px;
+    }
+
+
+    .cardIcon {
+        display: flex;
+        align-items: center;
+
+        span {
+            margin-left: 1rem;
+            font-family: "GalleryModern", sans-serif;
+        }
+
+        .icon {
+            width: 3rem;
+            aspect-ratio: 1;
+            background: #252525;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+
+            img {
+                width: 1.5rem;
+            }
+        }
+    }
+
+    .card-body {
+
+        height: 100%;
+
+        color: #ffffff;
+        font-family: "NeueMachina";
+
+        .card-title {
+            font-size: 2.5rem;
+
+            line-height: 2.5rem;
+
+            margin-bottom: 1rem;
+            font-weight: bold;
+            font-style: oblique;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #dedede;
+        }
+    }
+
+}
