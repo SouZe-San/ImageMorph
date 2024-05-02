@@ -26,12 +26,16 @@
   --white-text-color: #ffffff;
   --gray-text-color: #aaaaaa;
   --blur-btn-bg: #ffffff62;
+  --gradient-bg: linear-gradient(to right, #0e1f14 25%, #030c06);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
 }
 body {
   /* font-family: "NeueMachina-Regular", sans-serif; */

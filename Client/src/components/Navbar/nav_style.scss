@@ -24,6 +24,7 @@ nav {
     width: 100vw;
     height: var(--nav-height);
     z-index: 100;
+    transition: top 600ms ease;
 
     .border_nav {
 

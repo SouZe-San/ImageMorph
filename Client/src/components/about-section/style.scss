@@ -2,6 +2,7 @@
     padding-top: calc(var(--nav-height) - 2rem);
 
     background: linear-gradient(45deg, #0e1f14 18%, var(--primary-bg-color) 37%, #000 100%);
+    ;
 
     >header {
         font-size: 5.34em;
@@ -23,7 +24,7 @@
 
     .card_section {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: .5rem;
         padding: .5rem 1rem 0 0;
     }
@@ -79,16 +80,16 @@
         }
 
         .icon {
-            width: 3rem;
+            width: 3.5rem;
             aspect-ratio: 1;
-            background: #252525;
+            background: #1a2b187a;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
 
             img {
-                width: 1.5rem;
+                width: 1.8rem;
             }
         }
     }
@@ -101,7 +102,7 @@
         font-family: "NeueMachina";
 
         .card-title {
-            font-size: 2.5rem;
+            font-size: 2.1rem;
 
             line-height: 2.5rem;
 
@@ -111,8 +112,9 @@
         }
 
         .card-text {
-            font-size: 1rem;
-            color: #dedede;
+            font-size: .7rem;
+            //color: #dedede;
+            color: var(--gray-text-color);
         }
     }
 
