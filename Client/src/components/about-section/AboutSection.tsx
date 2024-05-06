@@ -44,7 +44,7 @@ const AboutArrays = {
 
 const AboutSection = () => {
   return (
-    <section id="about" className="w-full px-8 pb-4 about_section relative ">
+    <section id="about" className="w-full px-8 pb-8 about_section relative ">
       <header className="text-6xl absolute">
         <h1>
           {" "}

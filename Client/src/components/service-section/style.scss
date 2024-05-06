@@ -1,16 +1,84 @@
 .services_poster {
 
-    h1:nth-child(1) {
-        color: var(--highlight-color2);
-        font-style: oblique;
-        font-size: 9rem;
-        font-family: "GalleryModern", sans-serif;
-        line-height: 1;
+
+    h1.logoTag {
+        position: absolute;
+        font-size: 7rem;
+        color: #5e5e5e3d;
+        z-index: -1;
+        font-family: "usually", sans-serif;
+
+        &:nth-child(1) {
+            transform: rotate(-90deg);
+            top: 5%;
+            left: 5%;
+        }
+
+        &:nth-child(2) {
+
+            top: 5%;
+            right: 5%;
+        }
+
+        &:nth-child(3) {
+            bottom: 10%;
+            left: -10%;
+        }
+
+
     }
 
-    h1:nth-child(2) {
 
-        font-family: "NeueMachina", sans-serif;
+
+
+    .middleBox {
+
+        cursor: pointer;
+        position: relative;
+
+        &:hover {
+
+            span.underLine {
+                width: 75% !important;
+            }
+        }
+
+        h1:nth-child(1) {
+
+            font-style: oblique;
+            font-size: 9rem;
+            font-family: "GalleryModern", sans-serif;
+            display: inline;
+            position: relative;
+
+            span.underLine {
+                transition: width .4s ease-in-out;
+                height: 2px;
+                position: absolute;
+                bottom: 0;
+                background: var(--highlight-color2);
+                width: 0%;
+                left: 40%;
+            }
+        }
+
+        h1:nth-child(2) {
+            img {
+                width: 17rem;
+                position: absolute;
+                top: 33%;
+                left: 33%;
+            }
+
+            font-size: 3.5rem;
+            color: var(--highlight-color2);
+            font-family: "NeueMachina",
+            sans-serif;
+
+            span {
+                margin-left: 22rem;
+            }
+        }
     }
 }
 

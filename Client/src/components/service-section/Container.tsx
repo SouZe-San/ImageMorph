@@ -4,6 +4,7 @@ import "./style.scss";
 import ima1 from "../../assets/images/service-section/image01.png";
 import ima2 from "../../assets/images/service-section/Image2image.png";
 import ima3 from "../../assets/images/service-section/image03.png";
+import PosterBlock from "./PosterBlock";
 
 const servicesDetails: IServicesDetails[] = [
   {
@@ -35,11 +36,11 @@ const servicesDetails: IServicesDetails[] = [
 const Container = () => {
   return (
     <section className="w-full relative " id="services">
-      <div className="w-full h-screen flex justify-center items-center services_poster">
-        <div className="middleBox">
-          <h1 className="capitalize"> Let's see</h1>
-          <h1 className="text-7xl ml-28"> What we Have</h1>
-        </div>
+      <div className="w-full h-[102vh] flex relative justify-center items-center services_poster">
+        <h1 className="logoTag">ImageMorph</h1>
+        <h1 className="logoTag">ImageMorph</h1>
+        <h1 className="logoTag">ImageMorph</h1>
+        <PosterBlock />
       </div>
       {servicesDetails.map((service, index) => (
         <div className="w-full h-screen" key={index}>
