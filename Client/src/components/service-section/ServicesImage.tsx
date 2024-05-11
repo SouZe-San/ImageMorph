@@ -16,7 +16,7 @@ const ServicesImage = (props: IServicesDetails) => {
         <button className="horizontal_left_item_btn"> JUMP ON</button>
       </div>
       <div className="horizontal_right_item relative">
-        <img src={props.src} alt="Images" />
+        <img src={props.src} alt="Images" loading="lazy" />
         <PromptSection promptText={props.promptText} />
       </div>
     </div>

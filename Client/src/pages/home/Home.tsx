@@ -14,7 +14,7 @@ const Home = () => {
       <ServiceSection />
       <Exhibition />
       <ContactSection />
-      <footer>This is the footer</footer>
+      <footer className="mt-8 py-4 flex items-center px-24 text-center">This is the footer</footer>
     </div>
   );
 };

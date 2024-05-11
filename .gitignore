@@ -4,7 +4,8 @@ Server/*.env
 Server/node_modules/
 Server/public/temp/
 /node_modules
-
+Client/node_modules
+Client/src/assets
 
 # Logs
 logs

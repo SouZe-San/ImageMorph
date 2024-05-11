@@ -1,0 +1,240 @@
+.contact_section {
+
+    height: 90vh;
+
+    >.contact_right {
+        >h1 {
+            font-size: 6rem;
+            line-height: 1.2;
+            font-family: "Romance", sans-serif;
+            text-transform: uppercase;
+        }
+
+        >h3 {
+            font-size: 1.5rem;
+            font-family: "NeueMachina", sans-serif;
+
+        }
+
+        h1:nth-child(2) {
+            font-size: 5.7rem;
+        }
+
+        h1:nth-child(3) {
+            color: var(--highlight-color1);
+            font-size: 6rem;
+            position: relative;
+            width: 90%;
+            text-align: end;
+
+            // font-family: "GalleryModern", sans-serif;
+            &::before {
+                content: "";
+                position: absolute;
+                width: 0%;
+                height: 2px;
+                background: var(--highlight-color1);
+                top: 40%;
+                translate: -5% 50%;
+                transition: width 0.5s ease-in-out;
+                transform-origin: top left;
+                rotate: 180deg;
+            }
+        }
+
+
+
+
+        &:hover {
+
+
+            h1:nth-child(3)::before {
+                width: 60%;
+            }
+
+        }
+    }
+
+
+    >.contact_left {
+        >.social_icons {
+            gap: 2.1rem;
+
+            width: 80%;
+
+            &:hover> :not(:hover) {
+                opacity: .4;
+            }
+
+            .social-icon {
+                display: flex;
+                align-items: center;
+
+                cursor: pointer;
+
+                &:hover {
+                    .social_text {
+                        opacity: 1;
+
+                        h3::before {
+                            width: 100%;
+                        }
+                    }
+
+                    .icon {
+                        transform: scale(1.1) rotate(30deg);
+                    }
+                }
+
+                .icon {
+                    width: 2.8rem;
+                    aspect-ratio: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: .3rem;
+                    transition: transform .2s ease-in-out;
+
+                    svg {
+                        width: 100%;
+                        fill: var(--highlight-color2);
+
+                        path {
+                            fill: var(--highlight-color2);
+                        }
+
+                    }
+                }
+
+                .social_text {
+                    display: flex;
+                    margin-left: 1rem;
+                    opacity: .4;
+                    transition: opacity 150ms ease-in;
+
+                    h3 {
+                        // background: #ffffff1f;
+                        color: rgb(255, 255, 255);
+                        padding: .4rem 1.5rem;
+                        margin-left: -3px;
+                        border-radius: 10px;
+                        backdrop-filter: blur(7px);
+                        border: 1px solid #ffffff24;
+                        position: relative;
+
+                        &::before {
+                            transition: width .3s ease-in-out;
+                            position: absolute;
+                            content: "";
+                            width: 0%;
+                            height: 100%;
+                            border-radius: 10px;
+                            top: 0;
+                            left: 0;
+                            background: #ffffff24;
+                        }
+                    }
+
+                    img {
+                        width: 1.3rem;
+                        rotate: -90deg;
+                    }
+                }
+            }
+
+        }
+
+        >.mailBox {
+            .outerDiv {
+                width: 45%;
+
+                .innerDiv {
+
+                    padding: 0.5rem;
+                    border-radius: 7rem;
+                    // border: 1px solid var(--border--color);
+
+
+                    .text {
+                        background: white;
+                        font-weight: 600;
+                        width: 87%;
+                        // padding: .5rem 2.4rem;
+                        border-radius: 7rem;
+                        padding: 0.2rem .3rem;
+
+                        h2 {
+                            background: var(--primary-bg-color);
+                            color: white;
+                            padding: 0.8rem 3rem;
+                            border-radius: 7rem;
+                            font-size: 1.1rem;
+                            letter-spacing: 2px;
+                            text-align: center;
+                        }
+                    }
+
+                    .middle_space {
+                        width: .7rem;
+                        position: relative;
+                        aspect-ratio: 1/2;
+                        background: white;
+
+                        span {
+                            background: white;
+                            width: 4px;
+                            position: absolute;
+                            height: 50%;
+
+                            &:nth-child(1) {
+
+                                left: -3px;
+                                top: -2px;
+                                border-top-right-radius: 3px;
+                            }
+
+                            &:nth-child(2) {
+
+                                left: -3px;
+                                bottom: -2px;
+                                border-bottom-right-radius: 3px;
+                            }
+
+                            &:nth-child(3) {
+                                border-top-left-radius: 3px;
+                                right: -3px;
+                                top: -2px;
+                            }
+
+                            &:nth-child(4) {
+                                border-bottom-left-radius: 3px;
+                                right: -3px;
+                                bottom: -2px;
+                            }
+                        }
+                    }
+
+                    .mail_icon {
+                        width: 10%;
+                        padding: 1.8em;
+                        border-radius: 7rem;
+                        transition: all .3s ease-in-out;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .icon {
+                            width: 1.6rem;
+                            position: absolute;
+                        }
+
+
+                        background: rgb(255, 255, 255);
+                    }
+
+                }
+            }
+        }
+
+    }
+}

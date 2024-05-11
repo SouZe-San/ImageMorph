@@ -10,14 +10,6 @@
   font-family: "Manrope_bold";
   src: url("../src/assets/fonts/Manrope-SemiBold.woff2") format("woff2");
 }
-/* @font-face {
-  font-family: "NeueGrotesk_Ds";
-  src: url("../src/assets/fonts/Neue_Haas_Grotesk_DS.woff") format("woff");
-}
-@font-face {
-  font-family: "NeueGrotesk_Tx";
-  src: url("../src/assets/fonts/Neue_Haas_Grotesk_TXPro.woff") format("woff");
-} */
 @font-face {
   font-family: "usually";
   src: url("../src/assets/fonts/Usually-font.woff") format("woff");
@@ -49,4 +41,8 @@
 
 .square_brackets {
   color: var(--highlight-color1);
+}
+
+footer {
+  border-top: 1px solid var(--border--color);
 }

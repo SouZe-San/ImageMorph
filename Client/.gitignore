@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+src/assets
 node_modules
 dist
 dist-ssr
@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 
-src/assets
+src/assets/*

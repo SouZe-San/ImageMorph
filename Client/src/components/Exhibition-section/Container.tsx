@@ -47,7 +47,7 @@ const demoCollection = [
 
 const Container = () => {
   return (
-    <div className="exhibition-section mb-12">
+    <div className="exhibition-section mb-12" id="exhibition">
       <div className="headTag flex items-center ">
         <div className="flex flex-col justify-center items-start w-full onHoverDiv">
           <h1>Sort of</h1>
