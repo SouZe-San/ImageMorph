@@ -166,27 +166,6 @@
         flex: 1 1 auto;
 
 
-        .prompt_section {
-            width: 90%;
-            padding: 1rem 2rem;
-            border: 1px solid #ffffff5b;
-            border-radius: 25px;
-            background: #0e0e0e3b;
-            backdrop-filter: blur(7px);
-
-
-            >.prompt_text {
-                font-family: "NeueMachina";
-                font-size: clamp(15px, 2.5vw, 70%);
-            }
-
-            >img {
-                transform: rotate(-90deg);
-                width: 2rem;
-            }
-
-        }
-
         >img {
             width: 100%;
             height: 100%;

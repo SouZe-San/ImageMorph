@@ -1,3 +1,7 @@
+interface IItemsProps{
+    img:string
+    prompt:string
+}
 interface IServicesDetails {
     MainTitle:string
     subText :string

@@ -43,7 +43,7 @@ const Container = () => {
         <PosterBlock />
       </div>
       {servicesDetails.map((service, index) => (
-        <div className="w-full h-screen" key={index}>
+        <div className="w-full h-screen absolute top-0" key={index}>
           <ServicesImage
             MainTitle={service.MainTitle}
             subText={service.subText}

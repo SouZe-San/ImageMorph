@@ -1,6 +1,7 @@
 // import React from 'react'
 
-import arrow from "../../assets/icons/arrow.svg";
+import PromptSection from "../prompt-section/PromptSection";
+
 const ServicesImage = (props: IServicesDetails) => {
   return (
     <div className="horizontal_item_container flex w-full h-full">
@@ -16,11 +17,7 @@ const ServicesImage = (props: IServicesDetails) => {
       </div>
       <div className="horizontal_right_item relative">
         <img src={props.src} alt="Images" />
-        <div className="prompt_section absolute bottom-12 left-9 flex justify-between items-center">
-          <h4 className="prompt_text ">{props.promptText}</h4>
-
-          <img src={arrow} alt="" />
-        </div>
+        <PromptSection promptText={props.promptText} />
       </div>
     </div>
   );
