@@ -1,0 +1,91 @@
+.ai_services {
+    padding: 1rem 4rem;
+    padding-top: calc(var(--nav-height) - 3rem);
+    width: 100%;
+    min-height: 100.5vh;
+
+
+    header {
+
+        h1 {
+            font-size: 5.34em;
+            line-height: 1.2;
+
+
+
+            &:nth-child(1) {
+                color: var(--highlight-color1);
+                font-size: 4.2rem;
+                font-family: "NeueMachina", sans-serif;
+                text-transform: uppercase;
+            }
+
+            &:nth-child(2) {
+                font-family: "Romance", sans-serif;
+            }
+        }
+
+    }
+
+
+    .btn_section {
+        .btn {
+            width: 12%;
+            border: 1px solid #afff92b8;
+            text-align: center;
+            height: 3rem;
+            display: flex;
+            border-radius: 4rem;
+            overflow: hidden;
+
+            button {
+                font-family: "Manrope";
+                border-radius: 4rem;
+                width: 100%;
+                text-transform: capitalize;
+                position: relative;
+
+                &::before {
+                    transition: width .3s ease-in-out;
+                    content: " ";
+                    position: absolute;
+                    width: 0%;
+                    height: 100%;
+                    // background: rgba(109, 255, 90, 0.453);
+                    background: rgba(109, 255, 90, 0.453);
+                    top: 0;
+                    left: 0;
+                    z-index: -1;
+                }
+
+                &:hover {
+                    border-color: rgba(26, 143, 16, 0.808);
+                    color: white;
+                    font-family: "Manrope_bold";
+
+                    &::before {
+                        width: 100%;
+                    }
+
+                }
+            }
+
+
+        }
+
+        .active_btn {
+            background: rgba(48, 248, 22, 0.84);
+            // box-shadow: inset 5px 4px 8px #1e5526d9, inset -4px -4px 8px #92e69f;
+            color: black;
+            font-family: "Manrope_bold";
+
+        }
+    }
+}
+
+.horizontal_divider {
+
+    height: 1px;
+    margin: 0 1rem;
+    background: linear-gradient(90deg, #ffffff0d 3%, #b7ff1836 48%, #ffffff0d 97%);
+}

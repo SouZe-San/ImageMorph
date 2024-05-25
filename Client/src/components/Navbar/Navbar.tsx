@@ -5,11 +5,12 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bg from "../../assets/images/Nav-svg/btn-bg.svg";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 const Navbar = () => {
   const navItems = [
-    { name: "Home", link: "#home" },
+    { name: "Home", link: "/" },
     { name: "About", link: "#about" },
     { name: "Services", link: "/services" },
     { name: "Exhibition", link: "#exhibition" },
@@ -50,14 +51,16 @@ const Navbar = () => {
               key={index}
             >
               <div className="nav_link">
-                <a href={item.link}>{item.name}</a>
+                <Link to={item.link}>{item.name}</Link>
               </div>
             </div>
           ))}
         </div>
       </div>
       <div className="auth_btn_section flex items-center ">
-        <div className="text innerPadded_btn">Become A Member</div>
+        <Link className="text innerPadded_btn" to="/auth">
+          Become A Member
+        </Link>
         <div className="auth_icon ">
           <img src={userIcon} className="icon" loading="lazy" alt="Icon" />
         </div>

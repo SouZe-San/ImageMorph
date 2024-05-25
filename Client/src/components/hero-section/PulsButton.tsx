@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 // import React from 'react'
 
 const PulsButton = () => {
@@ -6,14 +8,14 @@ const PulsButton = () => {
       <div className="puls flex justify-center items-center">
         <span></span>
         <span></span>
-        <div className="btn ">
+        <Link className="btn" to="/auth">
           <h1>
             <span>S</span>ign
           </h1>
           <h1>
             <span>U</span>p
           </h1>
-        </div>
+        </Link>
       </div>
     </div>
   );

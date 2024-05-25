@@ -1,4 +1,5 @@
 // import React from 'react'
+import { Link } from "react-router-dom";
 import "./error_style.scss";
 const _404 = () => {
   return (
@@ -13,11 +14,11 @@ const _404 = () => {
       <h1 className=" text_404">404</h1>
       <h1 className=" text_404">404</h1>
 
-      <div className="circle flex justify-center items-center ">
+      <Link to={"/"} className="circle flex justify-center items-center ">
         <h1>
           Back to <br /> home
         </h1>
-      </div>
+      </Link>
     </section>
   );
 };

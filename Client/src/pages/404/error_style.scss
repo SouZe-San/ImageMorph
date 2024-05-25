@@ -45,15 +45,26 @@
         aspect-ratio: 1;
         background: #0c2414;
         border-radius: 50%;
-        border: 2px solid var(--border--color);
+        border: 2px solid rgba(255, 255, 255, 0.332);
         font-family: "GalleryModern";
         cursor: pointer;
+
+        transition: border-color 0.4s ease-in-out;
 
         >h1 {
             text-align: center;
             font-size: 2rem;
             line-height: 1;
+            color: var(--gray-text-color);
+            transition: color 0.4s ease-in-out;
+        }
 
+        &:hover {
+            border-color: var(--border-color);
+
+            h1 {
+                color: white;
+            }
         }
     }
 }

@@ -1,11 +1,12 @@
+import { useState, useEffect } from "react";
+
 import google from "../../../assets/icons/auth/google-icon.svg";
 import facebook from "../../../assets/icons/auth/facebook-icon.svg";
 
 // icons import
 import lockedLock from "../../../assets/icons/auth/locked-lock.svg";
-// import unLockedLock from '..././../assets/icons/auth/unlocked-lock.svg'
+import unLockedLock from "../../../assets/icons/auth/unlocked-lock.svg";
 import mailIcon from "../../../assets/icons/mail-icon.svg";
-import userBold from "../../../assets/icons/auth/user-bold.svg";
 import userIcon from "../../../assets/icons/user-icon01.svg";
 
 interface IFormSection {
@@ -14,54 +15,90 @@ interface IFormSection {
 }
 
 const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [userName, setUserName] = useState<undefined | string>(undefined);
+  const [email, setEmail] = useState<undefined | string>(undefined);
+  const [password, setPassword] = useState<undefined | string>(undefined);
+
+  useEffect(() => {
+    const pass = document.getElementById("password");
+    if (isPasswordVisible) {
+      (pass as HTMLInputElement).type = "text";
+    } else {
+      (pass as HTMLInputElement).type = "password";
+    }
+  }, [isPasswordVisible]);
+
   return (
     <div className="sign-section-right-form_section  grow">
       <div className="headTag">
         <h1>
-          Enter Your <span>Visual Playground</span>
+          {isSignIn ? "Enter Your" : "Return to Your"} <span>Visual Playground</span>
         </h1>
-        <h5>Sign in to Start Crafting Magic</h5>
+        <h5>{isSignIn ? "Sign in to Start Crafting Magic" : "Log in to Start Crafting Again"}</h5>
       </div>
-      <div className="formPart mt-12">
+      <div className={`formPart ${isSignIn ? "mt-16" : "mt-24"}`}>
         <form action="" method="post">
-          <div className="inputBlock">
-            <label htmlFor="fullName">Full Name</label>
-            <div className="input">
-              <input type="fullName" name="fullName" />
+          {isSignIn && (
+            <div className="inputBlock">
+              <input
+                type="text"
+                name="userName"
+                value={userName}
+                id="userName"
+                placeholder=""
+                onChange={(e) => {
+                  setUserName(e.target.value);
+                }}
+              />
+              <label htmlFor="userName">UserName</label>
               <img src={userIcon} alt="" />
+
+              <h5 className="verification" id="userName">
+                {" "}
+              </h5>
             </div>
-            <h5 className="verification" id="fullName"></h5>
-          </div>
+          )}
           <div className="inputBlock">
-            <label htmlFor="userName">UserName</label>
-            <div className="input">
-              <input type="userName" name="userName" />
-              <img src={userBold} alt="" />
-            </div>
-            <h5 className="verification" id="userName">
-              {" "}
-            </h5>
-          </div>
-          <div className="inputBlock">
+            <input
+              type="email"
+              name="email"
+              value={email}
+              placeholder=""
+              id="email"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
             <label htmlFor="email">Email</label>
-            <div className="input">
-              <input type="email" name="email" />
-              <img src={mailIcon} alt="" />
-            </div>
+            <img src={mailIcon} alt="" />
             <h5 className="verification" id="email"></h5>
           </div>
           <div className="inputBlock">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              placeholder=""
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
             <label htmlFor="password">Password</label>
-            <div className="input">
-              <input type="password" name="password" />
-              <img src={lockedLock} alt="" className="cursor-pointer" />
-            </div>
+            <img
+              src={isPasswordVisible ? unLockedLock : lockedLock}
+              alt=""
+              className="cursor-pointer"
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            />
+
             <h5 className="verification" id="password"></h5>
           </div>
 
-          <div className=" submitBtn flex justify-start items-center">
+          <div className=" submitBtn flex mt-4 justify-start items-center">
             <button type="submit" className="">
-              Sign In
+              {isSignIn ? "Sign In" : "Log In"}
             </button>
           </div>
         </form>
@@ -73,7 +110,7 @@ const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
         <span></span>
       </div>
 
-      <div className="alternative_connection ">
+      <div className="alternative_connection  mt-6">
         <div className="btnBox flex items-center justify-center">
           <div className="icon">
             <img src={google} alt="" />
@@ -94,7 +131,8 @@ const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
 
       <div className="redirect_section mt-4">
         <h5>
-          Already have an account? <span onClick={() => setIsSignIn(!isSignIn)}>Log In</span>
+          {isSignIn ? " Already have an account?" : "New Here?"}{" "}
+          <span onClick={() => setIsSignIn(!isSignIn)}> {!isSignIn ? "Sign In" : "Log In"}</span>
         </h5>
       </div>
     </div>

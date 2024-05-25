@@ -44,5 +44,11 @@
 }
 
 footer {
-  border-top: 1px solid var(--border--color);
+  border-top: 1px solid #ffffff24;
+  color: var(--gray-text-color);
+  a {
+    margin-left: 0.4rem;
+    font-weight: bold;
+    color: var(--highlight-color1);
+  }
 }
