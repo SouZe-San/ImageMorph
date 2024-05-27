@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 import { NUser_model } from "./types";
+import { platform } from "os";
 
 const userSchema = new Schema<NUser_model.IUserModel>({
   username: {
@@ -25,7 +26,10 @@ const userSchema = new Schema<NUser_model.IUserModel>({
     index: true,
   },
   password: { type: String, required: [true, "Password is required"] },
-});
+  refreshToken: {
+      type: String,
+    },
+},{timestamps:true});
 
 
 /*
@@ -57,6 +61,21 @@ userSchema.methods.generateAccessToken = function () {
     return jwt.sign(payload, JwtSecret, {
       expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     });
+  }
+};
+userSchema.methods.generateRefreshToken = function () {
+  const payload: NUser_model.IRefreshTokenPayload = {
+    _id: this._id,
+  };
+
+
+  if( process.env.REFRESH_TOKEN_SECRET){
+    return jwt.sign(payload,
+      process.env.REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+      }
+    );
   }
 };
 

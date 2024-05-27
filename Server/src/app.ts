@@ -1,13 +1,12 @@
-import express ,{Application}from "express";
+import express, { Application } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-const app:Application = express();
+const app: Application = express();
 
 const corsOptions = {
   origin: "*",
   credentials: true,
-
 };
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "32kb" }));
@@ -24,6 +23,6 @@ import aiRouter from "./routes/ai.routes";
 //     }
 // );
 app.use("/image-morph/api/v1/user", userRoutes);
-app.use("/image-morph/api/v1/image", aiRouter);
+app.use("/image-morph/api/v1/user/image", aiRouter);
 
 export { app };

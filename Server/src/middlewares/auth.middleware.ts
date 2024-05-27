@@ -31,7 +31,7 @@ export const verifyJWT = async (req:RequestWithUser, res:Response, next:NextFunc
     }
     next();
   } catch (error) {
-    // console.log("error from authMiddleware: ", error);
+    console.log("error from authMiddleware: ", error);
     res.status(resStatus.Forbidden).json({ error: "Invalid token" });
   }
 };

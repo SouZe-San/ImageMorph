@@ -6,15 +6,23 @@ export namespace NUser_model{
     username: string;
 
 }
+
+interface IRefreshTokenPayload{
+     _id: Types.ObjectId;
+}
+
 interface IUserModel{
     username: string;
     fullName: string;
     email: string;
     password: string;
+    refreshToken:string;
     generateAccessToken(): string;
     isPasswordCorrect(password:string):  Promise<boolean>;
-
+    generateRefreshToken():string;
 }
+
+
 }
 
 
