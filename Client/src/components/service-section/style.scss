@@ -84,6 +84,11 @@
 
 
 
+.serviceBlock {
+    clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 150% 100%);
+    transition: background .5s ease;
+    z-index: 2;
+}
 
 
 

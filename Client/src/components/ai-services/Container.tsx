@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import "./style.scss";
+import { useSearchParams } from "react-router-dom";
 
 // const placeholder = [
 //   "your negative prompt",
@@ -12,11 +13,24 @@ const imageRatios: string[] = ["1:1", "3:2", "4:5", "9:16", "16:9"];
 
 const Container = ({ apiType }: { apiType: number }) => {
   // const [index, setIndex] = useState<number>(0);
-
+  const [searchParams] = useSearchParams();
   const [styleInd, setStyleInd] = useState<number | null>(null);
   const [rationInd, setRatioInd] = useState<number>(0);
   const [willTake, makeDecision] = useState<boolean[]>([false, false, false, false]);
+  const [selectedImage, setSelectedImage] = useState<string | ArrayBuffer | null>(null);
 
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const apiProps = searchParams.get("api");
+  console.log(apiProps);
   return (
     <section className="ai-user-section">
       <div className="section-outer-left-section grow flex flex-col gap-8">
@@ -32,7 +46,17 @@ const Container = ({ apiType }: { apiType: number }) => {
               className="image-add-box relative"
               style={apiType === 0 ? { borderColor: "transparent", display: "none" } : {}}
             >
-              <input type="file" name="image" id="image" accept="image/*" />
+              <input
+                type="file"
+                name="image"
+                id="image"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              {selectedImage && (
+                <img src={selectedImage as string} alt="Selected" className="absolute top-0" />
+              )}
+
               <h1 className="tag text-center absolute">
                 <span>&#43;</span> <br /> Add Or Drop Image
               </h1>

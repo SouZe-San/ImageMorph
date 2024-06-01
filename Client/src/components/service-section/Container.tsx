@@ -5,6 +5,10 @@ import ima1 from "../../assets/images/service-section/image01.png";
 import ima2 from "../../assets/images/service-section/Image2image.png";
 import ima3 from "../../assets/images/service-section/image03.png";
 import PosterBlock from "./PosterBlock";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 const servicesDetails: IServicesDetails[] = [
   {
@@ -34,6 +38,32 @@ const servicesDetails: IServicesDetails[] = [
 ];
 
 const Container = () => {
+  const servicesRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    servicesRef.current.forEach((ele, index) => {
+      gsap.fromTo(
+        ele,
+        {
+          clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 150% 100%)",
+        },
+        {
+          clipPath: "polygon(-100% 0%, 100% 0%, 100% 100%, -25% 100%)",
+          duration: 6,
+          delay: index * 0.5,
+          ease: "power2.inOut",
+          scrollTrigger: {
+            trigger: ele,
+            start: `top 90%`,
+            end: `+=${ele.clientHeight}`,
+            scrub: 0.5,
+            // markers: true,
+          },
+        }
+      );
+    });
+  }, []);
+
   return (
     <section className="w-full relative " id="services">
       <div className="w-full h-[102vh] flex relative justify-center items-center services_poster">
@@ -43,7 +73,11 @@ const Container = () => {
         <PosterBlock />
       </div>
       {servicesDetails.map((service, index) => (
-        <div className="w-full h-screen absolute top-0" key={index}>
+        <div
+          className="w-full h-screen"
+          key={index}
+          ref={(ele) => (servicesRef.current[index] = ele as HTMLDivElement)}
+        >
           <ServicesImage
             MainTitle={service.MainTitle}
             subText={service.subText}

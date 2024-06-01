@@ -1,22 +1,41 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./nav_style.scss";
 import userIcon from "../../assets/icons/user-icon01.svg";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bg from "../../assets/images/Nav-svg/btn-bg.svg";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 const Navbar = () => {
   const navItems = [
     { name: "Home", link: "/" },
-    { name: "About", link: "#about" },
+    { name: "About", link: "/#about" },
     { name: "Services", link: "/services" },
-    { name: "Exhibition", link: "#exhibition" },
+    { name: "Exhibition", link: "/#exhibition" },
   ];
 
+  const [activeNavButton, setActiveNavButton] = useState("/");
   const navRef = useRef(null);
+  const location = useLocation();
+
+  const path = location.pathname;
+  const hash = location.hash;
+  useEffect(() => {
+    setActiveNavButton(`${path}${hash}`);
+  }, [path, hash]);
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, hash]);
 
   useGSAP(() => {
     const navbar = navRef.current;
@@ -46,7 +65,9 @@ const Navbar = () => {
           {navItems.map((item, index) => (
             <div
               className={
-                index === 0 ? "nav_item innerPadded_btn active_NavLink" : "nav_item innerPadded_btn"
+                item.link === activeNavButton
+                  ? "nav_item innerPadded_btn active_NavLink"
+                  : "nav_item innerPadded_btn"
               }
               key={index}
             >
