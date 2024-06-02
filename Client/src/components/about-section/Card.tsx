@@ -3,36 +3,35 @@ interface CardProps {
   title: string;
   text: string;
 }
-// import React from "react";
 
 const Card = (props: CardProps) => {
-  // const cards = document.querySelectorAll(".card");
+  const cards = document.querySelectorAll(".card");
 
-  // window.addEventListener("mousemove", (ev) => {
-  //   cards.forEach((e) => {
-  //     const blob = e.querySelector(".blob");
-  //     const fBlob = e.querySelector(".fakeBlob");
-  //     const rec = fBlob?.getBoundingClientRect();
+  window.addEventListener("mousemove", (ev) => {
+    cards.forEach((e) => {
+      const blob = e.querySelector(".blob");
+      const fBlob = e.querySelector(".fakeBlob");
+      const rec = fBlob?.getBoundingClientRect();
 
-  //     if (blob && rec) {
-  //       blob.animate(
-  //         [
-  //           {
-  //             transform: `translate(${ev.clientX - rec.left - rec.width / 2}px,${
-  //               ev.clientY - rec.top - rec.height / 2
-  //             }px)`,
-  //           },
-  //         ],
-  //         {
-  //           duration: 300,
-  //           fill: "forwards",
-  //         }
-  //       );
+      if (blob && rec) {
+        blob.animate(
+          [
+            {
+              transform: `translate(${ev.clientX - rec.left - rec.width / 2}px,${
+                ev.clientY - rec.top - rec.height / 2
+              }px)`,
+            },
+          ],
+          {
+            duration: 300,
+            fill: "forwards",
+          }
+        );
 
-  //       (blob as HTMLElement).style.opacity = "1";
-  //     }
-  //   });
-  // });
+        (blob as HTMLElement).style.opacity = "1";
+      }
+    });
+  });
 
   return (
     <div className="card ">

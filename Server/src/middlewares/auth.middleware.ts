@@ -4,9 +4,10 @@ import { Response, Request, NextFunction } from "express";
 import { resStatus } from "../utils/responseStatus";
 import jwt from "jsonwebtoken";
 import { NUser_model } from "../models/types";
+import { log } from "node:console";
 
 interface RequestWithUser extends Request {
-  user?: NUser_model.IUserModel;
+  user?: NUser_model.IReqUser;
 }
 
 export const verifyJWT = async (req: RequestWithUser, res: Response, next: NextFunction) => {

@@ -6,9 +6,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import bg from "../../assets/images/Nav-svg/btn-bg.svg";
 import { Link, useLocation } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import useAuth from "../../hooks/userAuth.hook";
 
 gsap.registerPlugin(ScrollTrigger);
 const Navbar = () => {
+  const { auth, setAuth } = useAuth();
+
   const navItems = [
     { name: "Home", link: "/" },
     { name: "About", link: "/#about" },
@@ -36,6 +40,24 @@ const Navbar = () => {
       window.scrollTo(0, 0);
     }
   }, [location.pathname, hash]);
+
+  useEffect(() => {
+    if (!auth?.accessToken) {
+      const accessToken = localStorage.getItem("accessToken");
+      const user = localStorage.getItem("user");
+
+      if (accessToken) {
+        setAuth({ accessToken, loggedInUser: user });
+        const decodedToken = jwtDecode(accessToken);
+        if (typeof decodedToken.exp === "number") {
+          if (decodedToken.exp * 1000 < new Date().getTime()) {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("user");
+          }
+        }
+      }
+    }
+  }, [setAuth, auth?.accessToken]);
 
   useGSAP(() => {
     const navbar = navRef.current;
@@ -79,9 +101,15 @@ const Navbar = () => {
         </div>
       </div>
       <div className="auth_btn_section flex items-center ">
-        <Link className="text innerPadded_btn" to="/auth">
-          Become A Member
-        </Link>
+        {auth?.accessToken ? (
+          <Link className="text innerPadded_btn profileBtn" to="/profile">
+            {auth.loggedInUser}
+          </Link>
+        ) : (
+          <Link className="text innerPadded_btn" to="/auth">
+            Become A Member
+          </Link>
+        )}
         <div className="auth_icon ">
           <img src={userIcon} className="icon" loading="lazy" alt="Icon" />
         </div>

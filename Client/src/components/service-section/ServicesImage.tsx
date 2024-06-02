@@ -1,5 +1,6 @@
 // import React from 'react'
 
+import { Link } from "react-router-dom";
 import PromptSection from "../prompt-section/PromptSection";
 
 const ServicesImage = (props: IServicesDetails) => {
@@ -13,7 +14,10 @@ const ServicesImage = (props: IServicesDetails) => {
           <p>{props.description}</p>
         </div>
 
-        <button className="horizontal_left_item_btn"> JUMP ON</button>
+        <button className="horizontal_left_item_btn">
+          {" "}
+          <Link to="/services">JUMP ON</Link>
+        </button>
       </div>
       <div className="horizontal_right_item relative">
         <img src={props.src} alt="Images" loading="lazy" />

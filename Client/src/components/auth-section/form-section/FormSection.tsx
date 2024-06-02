@@ -1,4 +1,9 @@
-import { useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect, MouseEventHandler } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { logIn, singIn } from "../../../api/axios";
+import useAuth from "../../../hooks/userAuth.hook";
 
 import google from "../../../assets/icons/auth/google-icon.svg";
 import facebook from "../../../assets/icons/auth/facebook-icon.svg";
@@ -14,12 +19,44 @@ interface IFormSection {
   isSignIn: boolean;
 }
 
+interface ILoginUser {
+  email: string;
+  password: string;
+}
+interface IRegisterUser {
+  email: string;
+  password: string;
+  username: string;
+}
+
+interface IRexEx {
+  username: RegExp;
+  password: RegExp;
+  email: RegExp;
+}
+type TRegexPatterns = "username" | "password" | "email";
+// Define the validation patterns
+const patterns: IRexEx = {
+  username: /^[a-z\d]{5,12}$/i,
+  password: /^[\d\w@-]{8,20}$/i,
+  email: /^([a-z\d.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+};
+
+enum regexErrorMassage {
+  username = "Username must be between 5 to 12 characters and Have no special characters",
+  password = "Password must be between 8 to 20 characters and Have no special characters except @ and -",
+  email = "Please enter a valid email address,Format is not correct",
+}
+
 const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [userName, setUserName] = useState<undefined | string>(undefined);
   const [email, setEmail] = useState<undefined | string>(undefined);
   const [password, setPassword] = useState<undefined | string>(undefined);
+  const [errors, setErrors] = useState({ username: "", password: "", email: "" });
 
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
   useEffect(() => {
     const pass = document.getElementById("password");
     if (isPasswordVisible) {
@@ -28,6 +65,97 @@ const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
       (pass as HTMLInputElement).type = "password";
     }
   }, [isPasswordVisible]);
+
+  // Function to validate the inputs
+  const validate = (name: TRegexPatterns, value: string) => {
+    if (value !== "") {
+      if (!patterns[name].test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: regexErrorMassage[name as keyof typeof regexErrorMassage] || `Invalid ${name}`,
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "",
+        }));
+      }
+    } else setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+  };
+
+  const OnFormSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+    if (!isSignIn) {
+      console.log("LogIn");
+      if (!email || !password) {
+        alert("Please fill all the fields");
+        return;
+      }
+
+      if (!patterns["email"].test(email) || !patterns["password"].test(password)) {
+        alert("Invalid Email or Password");
+      }
+      const userData: ILoginUser = {
+        email,
+        password,
+      };
+      try {
+        console.log("userData: ", userData);
+        const { data } = await logIn(userData);
+        const { loggedInUser, accessToken } = data.data;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("user", loggedInUser.username);
+        setAuth({ loggedInUser: loggedInUser.username, accessToken });
+        navigate("/");
+      } catch (error: any) {
+        if (!error?.response?.status) {
+          alert("No Server Response");
+        } else if (error?.response?.status === 400) {
+          alert("Missing Username or Password");
+        } else if (error?.response?.status === 403) {
+          alert("Unauthorized");
+        } else {
+          alert("Login Failed");
+        }
+        console.log("Log In failed !! ", error);
+      }
+    } else {
+      console.log("Registration");
+      if (!userName || !email || !password) {
+        alert("Please fill all the fields");
+        return;
+      }
+      if (
+        !patterns["email"].test(email) ||
+        !patterns["password"].test(password) ||
+        !patterns["username"].test(userName)
+      ) {
+        alert("Invalid Email or Password or Username");
+      }
+      const registerData: IRegisterUser = {
+        username: userName,
+        email,
+        password,
+      };
+      try {
+        await singIn(registerData);
+        console.log("registerData: ", registerData);
+        setIsSignIn(!isSignIn);
+      } catch (error: any) {
+        console.log("error from register: ", error);
+        if (!error?.response?.status) {
+          alert("No Server Response");
+        } else if (error?.response?.status === 404) {
+          alert("Missing Username or Password");
+        } else if (error?.response?.status === 403) {
+          alert("Unauthorized");
+        } else {
+          alert("Login Failed");
+        }
+        console.log("Log In failed !! ");
+      }
+    }
+  };
 
   return (
     <div className="sign-section-right-form_section  grow">
@@ -49,13 +177,13 @@ const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
                 placeholder=""
                 onChange={(e) => {
                   setUserName(e.target.value);
+                  validate("username", e.target.value);
                 }}
               />
               <label htmlFor="userName">UserName</label>
               <img src={userIcon} alt="" />
-
               <h5 className="verification" id="userName">
-                {" "}
+                {errors.username}
               </h5>
             </div>
           )}
@@ -68,11 +196,14 @@ const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
               id="email"
               onChange={(e) => {
                 setEmail(e.target.value);
+                validate("email", e.target.value);
               }}
             />
             <label htmlFor="email">Email</label>
             <img src={mailIcon} alt="" />
-            <h5 className="verification" id="email"></h5>
+            <h5 className="verification" id="email">
+              {errors.email}
+            </h5>
           </div>
           <div className="inputBlock">
             <input
@@ -83,6 +214,7 @@ const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
               placeholder=""
               onChange={(e) => {
                 setPassword(e.target.value);
+                validate("password", e.target.value);
               }}
             />
             <label htmlFor="password">Password</label>
@@ -93,11 +225,13 @@ const FormSection = ({ setIsSignIn, isSignIn }: IFormSection) => {
               onClick={() => setIsPasswordVisible(!isPasswordVisible)}
             />
 
-            <h5 className="verification" id="password"></h5>
+            <h5 className="verification" id="password">
+              {errors.password}
+            </h5>
           </div>
 
           <div className=" submitBtn flex mt-4 justify-start items-center">
-            <button type="submit" className="">
+            <button type="submit" className="" onClick={OnFormSubmit}>
               {isSignIn ? "Sign In" : "Log In"}
             </button>
           </div>

@@ -318,7 +318,7 @@ const getCurrentUser = async (req: NUsers.RequestWithUser, res: Response) => {
   try {
     return res
       .status(resStatus.Success)
-      .json(new ApiResponse(resStatus.Success, req.user, "User fetched successfully"));
+      .json(new ApiResponse(resStatus.Success, "User fetched successfully", req.user));
   } catch (error) {
     console.log("error from get User Info : ", error);
     if (error instanceof ApiError) {

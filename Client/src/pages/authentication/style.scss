@@ -1,6 +1,6 @@
 .authSection {
     width: 100vw;
-    height: 102vh;
+    height: 100vh;
 
     background: linear-gradient(-45deg, #142f1d 18%, #0c2414 37%, #000000 100%)
 }
@@ -115,6 +115,20 @@ $boxWidth : 55%;
 
                 &:hover {
                     border-color: #ffffff78;
+                }
+
+
+                h5.verification {
+                    position: absolute;
+                    bottom: -15px;
+                    width: 115%;
+                    font-size: 8px;
+                    color: #ff4d7ff5;
+                    letter-spacing: 3px;
+                }
+
+                h5#password {
+                    bottom: -26px;
                 }
             }
 

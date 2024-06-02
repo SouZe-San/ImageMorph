@@ -1,0 +1,133 @@
+.profileSection {
+    width: 100%;
+    height: 100vh;
+    padding-top: calc(var(--nav-height) - 1rem);
+
+
+
+    .headerTag {
+        >h1 {
+            font-size: 3.3rem;
+            text-transform: uppercase;
+            font-family: "NeueMachina", sans-serif;
+
+            span {
+                font-family: "Romance", sans-serif;
+                color: var(--highlight-color2);
+                font-size: 2.3rem;
+            }
+
+        }
+
+        >h3 {
+            font-size: 2rem;
+            color: var(--gray-text-color);
+            letter-spacing: 3px;
+            word-spacing: 2px;
+        }
+    }
+
+}
+
+.userCard {
+    .userinfo {
+        display: flex;
+        width: 30%;
+        gap: 1rem;
+        flex-direction: column;
+
+        &::after {
+            content: " ";
+            position: absolute;
+            right: 0;
+            width: 1px;
+            height: 95%;
+            background: rgba(68, 68, 68, 0.679);
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7579364509475666) 3%, rgba(57, 57, 57, 0.9764238459055498) 13%, rgba(56, 56, 56, 1) 48%, rgba(59, 59, 59, 0.9568160027682948) 85%, rgba(0, 0, 0, 0.5506535377823004) 97%);
+            top: 5%;
+        }
+
+
+        .circle {
+            width: 10rem;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border: 2px solid var(--highlight-color2);
+            color: white;
+            background: #b1ffa612;
+            backdrop-filter: blur(3px);
+            font-size: 4rem;
+
+        }
+
+        .info {
+            h2 {
+                span {
+                    color: var(--gray-text-color);
+                    font-family: "GalleryModern", sans-serif;
+                }
+            }
+        }
+
+        .logout {
+            cursor: pointer;
+            padding: .9rem 0;
+            width: 35%;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            gap: .5rem;
+            color: var(--gray-text-color);
+            transition: all 0.3s ease-in;
+            background: #ffffff21;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: "";
+                position: absolute;
+                height: 100%;
+                width: 2px;
+                background: #ffffff05;
+                left: 0;
+                transition: width 0.4s ease-in-out;
+            }
+
+            &:hover {
+                display: flex;
+                border-color: #ffffff45;
+
+                &::before {
+                    width: 100%;
+                }
+            }
+        }
+
+        .disabled {
+            user-select: none;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.userGallery {
+    padding: 0 1rem;
+
+    h2 {
+        font-size: 2.8rem;
+        color: var(--highlight-color1);
+    }
+
+    .backTag {
+        top: 50%;
+        font-family: "GalleryModern", sans-serif;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 4rem;
+        color: #ffffff1f;
+    }
+}

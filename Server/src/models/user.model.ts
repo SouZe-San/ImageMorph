@@ -6,37 +6,34 @@ import bcrypt from "bcrypt";
 import { NUser_model } from "./types";
 import { platform } from "os";
 
-const userSchema = new Schema<NUser_model.IUserModel>({
-  username: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    lowercase: true,
-    trim: true,
-    unique: true,
-  },
-  fullName: {
-    type: String,
-    required: true,
-    index: true,
-  },
-  password: { type: String, required: [true, "Password is required"] },
-  refreshToken: {
+const userSchema = new Schema<NUser_model.IUserModel>(
+  {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true,
+      unique: true,
+    },
+    password: { type: String, required: [true, "Password is required"] },
+    refreshToken: {
       type: String,
     },
-},{timestamps:true});
-
+  },
+  { timestamps: true }
+);
 
 /*
-  * 1. Pre-save hook to hash the password before saving it to the database
-  * 2. isPasswordCorrect method to compare the password with the hashed password
-  * 3. generateAccessToken method to generate a JWT token for the user
-  */
+ * 1. Pre-save hook to hash the password before saving it to the database
+ * 2. isPasswordCorrect method to compare the password with the hashed password
+ * 3. generateAccessToken method to generate a JWT token for the user
+ */
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
@@ -68,14 +65,10 @@ userSchema.methods.generateRefreshToken = function () {
     _id: this._id,
   };
 
-
-  if( process.env.REFRESH_TOKEN_SECRET){
-    return jwt.sign(payload,
-      process.env.REFRESH_TOKEN_SECRET,
-      {
-        expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
-      }
-    );
+  if (process.env.REFRESH_TOKEN_SECRET) {
+    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    });
   }
 };
 

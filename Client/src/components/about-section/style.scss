@@ -35,15 +35,16 @@
     position: relative;
     border: 1px solid #37ff0f16;
     padding: 2rem 2rem;
+
     border-radius: 10px;
     background: rgba(75, 75, 75, 0.05);
     transition: border 0.27s ease-in-out;
     backdrop-filter: blur(2rem);
-    --blob-size: 200px;
+    --blob-size: 150px;
 
     &:hover {
         // background: #2f2f2f;
-        border: 1px solid #14ff0036;
+        border: 1px solid #00fc116b;
 
     }
 

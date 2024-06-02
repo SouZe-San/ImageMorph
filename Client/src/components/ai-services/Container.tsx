@@ -1,27 +1,40 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import "./style.scss";
-import { useSearchParams } from "react-router-dom";
+// import { useSearchParams } from "react-router-dom";
+import { imageGeneration, imageModificationGeneration } from "../../utils/image.utils";
 
-// const placeholder = [
-//   "your negative prompt",
-//   "What you do not wish to see",
-//   "replace cherry with orange",
-// ];
+interface IText2Image {
+  prompt: string;
+  ratio: string;
+  stylePreset?: string;
+  negativePrompt?: string;
+}
 
 const stylePreset: string[] = ["anime", "comic-book", "digital-art", "fantasy-art"];
 const imageRatios: string[] = ["1:1", "3:2", "4:5", "9:16", "16:9"];
 
 const Container = ({ apiType }: { apiType: number }) => {
   // const [index, setIndex] = useState<number>(0);
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
   const [styleInd, setStyleInd] = useState<number | null>(null);
   const [rationInd, setRatioInd] = useState<number>(0);
   const [willTake, makeDecision] = useState<boolean[]>([false, false, false, false]);
   const [selectedImage, setSelectedImage] = useState<string | ArrayBuffer | null>(null);
+  const [prompt, setPrompt] = useState<string>("");
+  const [negativePrompt, setNegativePrompt] = useState<string>("");
+  const [inputImage, setInputImage] = useState<File | null>(null);
+  const [outImageLink, setImageLink] = useState<string | null>(null);
 
+  useEffect(() => {
+    setPrompt("");
+    setNegativePrompt("");
+    setImageLink(null);
+    setSelectedImage(null);
+  }, [apiType]);
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setInputImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setSelectedImage(reader.result);
@@ -29,13 +42,69 @@ const Container = ({ apiType }: { apiType: number }) => {
       reader.readAsDataURL(file);
     }
   };
-  const apiProps = searchParams.get("api");
-  console.log(apiProps);
+
+  const onSubmit = async () => {
+    if (prompt === "") {
+      alert("Please enter a prompt");
+      return;
+    }
+
+    if (apiType === 0) {
+      // Text to Image
+      const promptBody: IText2Image = {
+        prompt: prompt,
+        ratio: imageRatios[rationInd],
+      };
+
+      if (styleInd !== null) {
+        promptBody.stylePreset = stylePreset[styleInd];
+      }
+
+      if (negativePrompt !== "") {
+        promptBody.negativePrompt = negativePrompt;
+      }
+
+      const imageLink = await imageGeneration(promptBody);
+      if (imageLink) {
+        setImageLink(imageLink);
+      }
+    }
+
+    if (apiType === 1) {
+      // Image to Image
+      if (!inputImage) {
+        alert("Please select a file first.");
+        return;
+      }
+
+      const inputData = new FormData();
+      inputData.append("testImage", inputImage);
+      inputData.append("prompt", prompt);
+      if (negativePrompt !== "") {
+        inputData.append("negativePrompt", negativePrompt);
+      }
+
+      const imageLink = await imageModificationGeneration(inputData);
+      if (imageLink) {
+        setImageLink(imageLink);
+      }
+    }
+  };
+
   return (
     <section className="ai-user-section">
       <div className="section-outer-left-section grow flex flex-col gap-8">
         <div className="prompt-box w-full">
-          <input type="text" name="input" id="input" placeholder="Your Prompt..." />
+          <input
+            type="text"
+            name="input"
+            value={prompt}
+            id="input"
+            placeholder="Your Prompt..."
+            onChange={(e) => {
+              setPrompt(e.target.value);
+            }}
+          />
         </div>
         <div className="image-in-out-section w-full flex gap-8">
           <aside
@@ -66,11 +135,15 @@ const Container = ({ apiType }: { apiType: number }) => {
             <h1>
               <span className="info-icon">?</span> <br /> Image will appear here
             </h1>
+
+            {outImageLink && (
+              <img src={`http://localhost:5000/${outImageLink}`} alt="comingImage" />
+            )}
           </div>
         </div>
       </div>
       <aside className="section-outer-right-section grow-0 flex flex-col">
-        <button>Generate</button>
+        <button onClick={onSubmit}>Generate</button>
 
         <div className="section-under-box flex flex-col ">
           <div className="choice-input ">
@@ -79,8 +152,12 @@ const Container = ({ apiType }: { apiType: number }) => {
                 <textarea
                   name="negativePrompt"
                   rows={5}
+                  value={negativePrompt}
                   id="negativePrompt"
                   placeholder="Negative Prompt ..."
+                  onChange={(e) => {
+                    setNegativePrompt(e.target.value);
+                  }}
                   // placeholder={placeholder[index]}
                 />
               </div>
@@ -93,12 +170,7 @@ const Container = ({ apiType }: { apiType: number }) => {
           <div className="choice-input ">
             <label htmlFor="negativePrompt" className=" flex flex-col gap-2">
               <div className="input order-2">
-                <input
-                  type="text"
-                  name="negativePrompt"
-                  id="negativePrompt"
-                  placeholder="Default 0"
-                />
+                <input type="text" name="seed" id="seed" placeholder="Default 0" />
               </div>
               <h5 className="order-1">
                 Seed <span className="info-icon">?</span>
