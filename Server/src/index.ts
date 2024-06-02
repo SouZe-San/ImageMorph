@@ -3,9 +3,9 @@ import { app } from "./app";
 import connectDB from "./db/connection";
 
 dotenv.config();
-// Start The Express
+// Start The Express Server
 
-const PORT: string|number = process.env.PORT || 8000;
+const PORT: string | number = process.env.PORT || 8000;
 
 connectDB()
   .then(() => {

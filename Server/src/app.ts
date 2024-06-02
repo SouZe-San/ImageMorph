@@ -3,7 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 const app: Application = express();
-
+console.log("origin :: ", process.env.CORS_ORIGIN);
 const corsOptions = {
   origin: "*",
   credentials: true,
@@ -11,7 +11,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "32kb" }));
 app.use(express.urlencoded({ extended: true, limit: "32kb" }));
-
+app.use(express.static("public"));
 app.use(cookieParser());
 
 //routes import
@@ -23,6 +23,6 @@ import aiRouter from "./routes/ai.routes";
 //     }
 // );
 app.use("/image-morph/api/v1/user", userRoutes);
-app.use("/image-morph/api/v1/user/image", aiRouter);
+app.use("/image-morph/api/v1/image", aiRouter);
 
 export { app };

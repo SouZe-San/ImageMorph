@@ -1,17 +1,15 @@
 import { User } from "../models/user.model";
 import { ApiError } from "../utils/ApiError";
-import { Response,Request, NextFunction } from "express";
+import { Response, Request, NextFunction } from "express";
 import { resStatus } from "../utils/responseStatus";
 import jwt from "jsonwebtoken";
 import { NUser_model } from "../models/types";
 
-
 interface RequestWithUser extends Request {
-    user?: NUser_model.IUserModel;
-    }
+  user?: NUser_model.IUserModel;
+}
 
-
-export const verifyJWT = async (req:RequestWithUser, res:Response, next:NextFunction) => {
+export const verifyJWT = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
 
@@ -19,15 +17,14 @@ export const verifyJWT = async (req:RequestWithUser, res:Response, next:NextFunc
       throw new ApiError(resStatus.Unauthorized, "Unauthorized request");
     }
 
-  
-    const decodedToken  = jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`);
-  if (typeof decodedToken !== 'string') {
-    const user = await User.findById(decodedToken?._id).select("-password");
+    const decodedToken = jwt.verify(token, `${process.env.ACCESS_TOKEN_SECRET}`);
+    if (typeof decodedToken !== "string") {
+      const user = await User.findById(decodedToken?._id).select("-password -refreshToken");
 
-    if (!user) {
-      throw new ApiError(resStatus.Unauthorized, "Invalid Access Token");
-    }
-    req.user = user;
+      if (!user) {
+        throw new ApiError(resStatus.Unauthorized, "Invalid Access Token");
+      }
+      req.user = user;
     }
     next();
   } catch (error) {
