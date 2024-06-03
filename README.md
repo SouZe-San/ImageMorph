@@ -41,10 +41,12 @@ ImageMorph is a tool that allows users to easily  Transforming animation & manga
 
 Dillinger uses a number of open source projects to work properly:
 
-- [ReactJs] - HTML enhanced for web apps!
-- [node.js] - Evented I/O for the backend
-- [Express] - fast node.js network app framework [@tjholowaychuk]
-- [Tailwind] - css framework
+- [ReactJs] - a free and open-source front-end JavaScript library for building user interfaces based on components.
+- [Node.js] - an open-source, cross-platform JavaScript runtime environment used for executing JavaScript code outside of a web browser.
+- [Express] - Fast and minimalist web framework for Node.js that supports web and mobile applications.
+- [Tailwind] - Utility-first CSS framework
+- [Scss] - A superset of CSS that adds variables, nesting, mixins and more to CSS
+- [TypeScript] - JavaScript with syntax for types.
 
 
 ## Installation 🎰
@@ -67,3 +69,4 @@ cd ./Server
 npm i
 npm start
 ```
+
