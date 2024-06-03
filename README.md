@@ -1,9 +1,14 @@
-<h1 align="center">ImageMorph</h1> 
+<p>
 
+<img src="https://github.com/SouZe-San/ImageMorph/assets/103335953/9fdfaa88-e38b-4d56-b81e-8d41cc18fb4c" alt="logo" width="150"/>
+<h1 align="center" >ImageMorph</h1> 
+</p>
 
 <div align="center">
 
-### Generate your imagination 
+### Manifest Your Imagination
+
+<img src="https://img.shields.io/badge/License-MIT-green.svg"/>
 <img src="https://img.shields.io/npm/v/npm.svg?logo=nodedotjs"/>
 <img src="https://img.shields.io/badge/Yarn-2C8EBB?logo=yarn&logoColor=fff"/>
 
@@ -19,15 +24,19 @@
 </div>
 
 ## About 💧
-ImageMorph is a ...
+ImageMorph is a tool that allows users to easily  Transforming animation & manga creation with automation, and versatility
 
 
-## Features
 
-- enhance your imagination 
+## Features 🚀
+
+- Enhance Vision
+- Figure Customization
+- Save and Organize Inspiration
 
 
-## Tech
+
+## Tech 🛠️
 
 Dillinger uses a number of open source projects to work properly:
 
@@ -37,21 +46,23 @@ Dillinger uses a number of open source projects to work properly:
 - [Tailwind] - css framework
 
 
-## Installation
+## Installation 🎰
 
 ImageMorph requires [Node.js](https://nodejs.org/) v10+ to run.
 
 Install the dependencies and devDependencies and start the server.
 
-### **_Frontend_**
+### Start Development Environment
+
 ```sh
-cd Client
+cd ./Client
 yarn
 yarn dev
 ```
-### **_Backend_**
+
 ```sh
-cd Server
+
+cd ./Server
 npm i
 npm start
 ```

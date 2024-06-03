@@ -19,7 +19,11 @@ const Container = () => {
             </div>
           </div>
           <div className="social-icon">
-            <a className="icon">
+            <a
+              className="icon"
+              href="https://instagram.com/soumyajit.mondal_564?igshid=YmMyMTA2M2Y="
+              target="_blank"
+            >
               <InstaIcon />
             </a>
             <div className="social_text">
@@ -28,7 +32,7 @@ const Container = () => {
             </div>
           </div>
           <div className="social-icon">
-            <a className="icon" target="_blank" href="https://github.com/SouZe-San/ImageMorph">
+            <a className="icon" target="_blank" href="https://github.com/SouZe-San">
               <GithubIcon />
             </a>
             <div className="social_text">
@@ -38,7 +42,11 @@ const Container = () => {
           </div>
           <div className="social-icon">
             {" "}
-            <a className="icon">
+            <a
+              className="icon"
+              href="https://www.linkedin.com/in/soumyajit-mondal-3342b4284"
+              target="_blank"
+            >
               <LinkedinIcon />
             </a>
             <div className="social_text">
@@ -48,7 +56,11 @@ const Container = () => {
           </div>
           <div className="social-icon">
             {" "}
-            <a className="icon">
+            <a
+              className="icon"
+              href="https://x.com/soumya03jit?t=wVnn1CMx38LmhmcjTm43XQ&s=09"
+              target="_blank"
+            >
               <XIcon />
             </a>
             <div className="social_text">

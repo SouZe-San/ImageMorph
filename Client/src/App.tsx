@@ -17,7 +17,7 @@ function App() {
         <footer className=" py-4 flex items-center justify-center px-24">
           For Any quarries contact us at{" "}
           <a target="_blank" href="mailto:somyajit.codemail@gmail.com">
-            image.morph@helpline.come
+            somyajit.codemail@gmail.com
           </a>
         </footer>
       </Router>

@@ -31,7 +31,7 @@
 }
 
 .card {
-    aspect-ratio: 2/2.05;
+    aspect-ratio: 2/2.5;
     position: relative;
     border: 1px solid #37ff0f16;
     padding: 2rem 2rem;
@@ -41,6 +41,10 @@
     transition: border 0.27s ease-in-out;
     backdrop-filter: blur(2rem);
     --blob-size: 150px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &:hover {
         // background: #2f2f2f;
