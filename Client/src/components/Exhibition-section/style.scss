@@ -92,11 +92,9 @@
                         transform: scale(1.05);
                     }
 
-                    // box-shadow: 0 0 18px -1px #fff,
-                    // 0 0 40px 9px #ffffff1a;
-                    box-shadow: rgb(255, 255, 255) 0px 4px 16px,
-                    rgba(179, 179, 179, 0.4) 0px 8px 24px,
-                    rgba(118, 118, 118, 0.4) 0px 16px 56px;
+                    box-shadow: rgba(255, 255, 255, 0.34) 0px 4px 16px,
+                    rgba(37, 93, 29, 0.4) 0px 8px 24px,
+                    rgba(38, 55, 37, 0.4) 0px 16px 56px;
                 }
 
                 >.item-image {

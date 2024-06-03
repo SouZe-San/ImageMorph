@@ -10,27 +10,27 @@ const Container = () => {
       <div className="contact_left grow flex flex-col justify-end">
         <div className="social_icons flex flex-col">
           <div className="social-icon">
-            <div className="icon">
+            <a className="icon">
               <FbIcon />
-            </div>
+            </a>
             <div className="social_text">
               {" "}
               <img src={triangle} alt="" /> <h3>Facebook</h3>
             </div>
           </div>
           <div className="social-icon">
-            <div className="icon">
+            <a className="icon">
               <InstaIcon />
-            </div>
+            </a>
             <div className="social_text">
               {" "}
               <img src={triangle} alt="" /> <h3>Instagram</h3>
             </div>
           </div>
           <div className="social-icon">
-            <div className="icon">
+            <a className="icon" target="_blank" href="https://github.com/SouZe-San/ImageMorph">
               <GithubIcon />
-            </div>
+            </a>
             <div className="social_text">
               {" "}
               <img src={triangle} alt="" /> <h3>Github</h3>
@@ -38,9 +38,9 @@ const Container = () => {
           </div>
           <div className="social-icon">
             {" "}
-            <div className="icon">
+            <a className="icon">
               <LinkedinIcon />
-            </div>
+            </a>
             <div className="social_text">
               <img src={triangle} alt="" />
               <h3>LinkedIn</h3>
@@ -48,9 +48,9 @@ const Container = () => {
           </div>
           <div className="social-icon">
             {" "}
-            <div className="icon">
+            <a className="icon">
               <XIcon />
-            </div>
+            </a>
             <div className="social_text">
               {" "}
               <img src={triangle} alt="" /> <h3>X</h3>
