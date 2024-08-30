@@ -70,6 +70,11 @@
                 display: flex;
                 align-items: center;
 
+                a {
+                    display: flex;
+                    align-items: center;
+                }
+
                 cursor: pointer;
 
                 &:hover {
@@ -236,5 +241,51 @@
             }
         }
 
+    }
+}
+
+
+@media screen and (width <=480px) {
+    .contact_section {
+        flex-direction: column-reverse;
+
+        >.contact_right {
+            padding-right: 1rem;
+
+            >h3 {
+                place-self: flex-end;
+
+            }
+
+            h1:nth-child(2) {
+                font-size: 5.7rem;
+            }
+
+            h1:nth-child(3) {
+                place-self: flex-end;
+
+            }
+
+
+
+
+        }
+
+        >.contact_left>.social_icons .social-icon .social_text {
+            opacity: .8;
+        }
+
+        >.contact_left>.mailBox .outerDiv {
+            width: auto;
+
+            .innerDiv .text {
+                width: 70%;
+
+                h2 {
+                    padding: 0.5rem 1rem;
+                    font-size: 1rem;
+                }
+            }
+        }
     }
 }

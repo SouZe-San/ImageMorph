@@ -111,3 +111,38 @@
 
 
 }
+
+@media screen and (width <=480px) {
+    .exhibition-section {
+        margin-top: 1rem;
+
+        >.headTag {
+            height: 30vh;
+            padding: 0;
+            margin-bottom: 0;
+
+            .onHoverDiv h1:nth-child(1) {
+                font-size: 3rem;
+            }
+
+            .onHoverDiv h1:nth-child(2) {
+                padding-left: 1rem;
+            }
+        }
+
+        .items_block {
+            padding: 1rem 0.5rem;
+
+            .rows:nth-child(1) {
+                height: 50vh;
+
+            }
+
+            .rows:nth-child(2) {
+                height: 80vh;
+
+            }
+        }
+
+    }
+}

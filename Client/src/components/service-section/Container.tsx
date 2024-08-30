@@ -5,7 +5,7 @@ import ima1 from "../../assets/images/service-section/image01.png";
 import ima2 from "../../assets/images/service-section/Image2image.png";
 import ima3 from "../../assets/images/service-section/image03.png";
 import PosterBlock from "./PosterBlock";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
@@ -40,53 +40,111 @@ const servicesDetails: IServicesDetails[] = [
 const Container = () => {
   const servicesRef = useRef<HTMLDivElement[]>([]);
 
-  useEffect(() => {
-    servicesRef.current.forEach((ele, index) => {
-      gsap.fromTo(
-        ele,
-        {
-          clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 150% 100%)",
-        },
-        {
-          clipPath: "polygon(-100% 0%, 100% 0%, 100% 100%, -25% 100%)",
-          duration: 6,
-          delay: index * 0.5,
-          ease: "power2.inOut",
-          scrollTrigger: {
-            trigger: ele,
-            start: `top 90%`,
-            end: `+=${ele.clientHeight}`,
-            scrub: 0.5,
-            // markers: true,
-          },
+  const posterRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [visibleIndex, setVisibleIndex] = useState<number>(0);
+
+  let refs: (HTMLDivElement | null)[] = [];
+
+  document.addEventListener("DOMContentLoaded", () => {
+    refs = [posterRef.current, ...servicesRef.current];
+  });
+
+  const checkVisibleItems = () => {
+    // Combine refs into a new array
+    if (containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+
+      refs.forEach((ref) => {
+        if (ref) {
+          const itemRect = ref.getBoundingClientRect();
+          // Check if the item is within the container's bounds
+          if (itemRect.left < containerRect.right && itemRect.right > containerRect.left) {
+            setVisibleIndex(refs.indexOf(ref));
+          }
         }
-      );
-    });
+      });
+    }
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+
+    if (container) {
+      container.addEventListener("scrollend", checkVisibleItems);
+      // Initial check
+      checkVisibleItems();
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", checkVisibleItems);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth > 500) {
+      servicesRef.current.forEach((ele, index) => {
+        gsap.fromTo(
+          ele,
+          {
+            clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 150% 100%)",
+          },
+          {
+            clipPath: "polygon(-100% 0%, 100% 0%, 100% 100%, -25% 100%)",
+            duration: 6,
+            delay: index * 0.5,
+            ease: "power2.inOut",
+            scrollTrigger: {
+              trigger: ele,
+              start: `top 90%`,
+              end: `+=${ele.clientHeight}`,
+              scrub: 0.5,
+              // markers: true,
+            },
+          }
+        );
+      });
+    }
   }, []);
 
   return (
-    <section className="w-full relative " id="services">
-      <div className="w-full h-[102vh] flex relative justify-center items-center services_poster">
-        <h1 className="logoTag">ImageMorph</h1>
-        <h1 className="logoTag">ImageMorph</h1>
-        <h1 className="logoTag">ImageMorph</h1>
-        <PosterBlock />
-      </div>
-      {servicesDetails.map((service, index) => (
+    <section className="relative">
+      <section className="w-full relative " id="services" ref={containerRef}>
         <div
-          className="w-full h-screen"
-          key={index}
-          ref={(ele) => (servicesRef.current[index] = ele as HTMLDivElement)}
+          ref={posterRef}
+          className="w-full sm:h-[102vh] h-[90vh] flex relative justify-center items-center services_poster"
         >
-          <ServicesImage
-            MainTitle={service.MainTitle}
-            subText={service.subText}
-            description={service.description}
-            src={service.src}
-            promptText={service.promptText}
-          />
+          <h1 className="logoTag">ImageMorph</h1>
+          <h1 className="logoTag">ImageMorph</h1>
+          <h1 className="logoTag">ImageMorph</h1>
+          <PosterBlock />
         </div>
-      ))}
+        {servicesDetails.map((service, index) => (
+          <div
+            className="w-full h-screen serviceItemMobile"
+            key={index}
+            ref={(ele) => (servicesRef.current[index] = ele as HTMLDivElement)}
+          >
+            <ServicesImage
+              MainTitle={service.MainTitle}
+              subText={service.subText}
+              description={service.description}
+              src={service.src}
+              promptText={service.promptText}
+            />
+          </div>
+        ))}
+      </section>
+      <div className="sectionNavI absolute sm:hidden flex">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div
+            key={index}
+            className={`sectionNavItem ${index === visibleIndex ? "active" : ""}`}
+          ></div>
+        ))}
+      </div>
     </section>
   );
 };

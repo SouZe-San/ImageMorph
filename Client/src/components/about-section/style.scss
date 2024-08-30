@@ -124,3 +124,62 @@
     }
 
 }
+
+@media screen and (width <=480px) {
+
+    .about_section {
+        >header {
+            position: relative;
+            font-size: 2.34em;
+        }
+
+        .card_section {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: .34rem;
+            padding: .34rem 0rem 0 0;
+
+            &:nth-child(2) {
+                >.fakeDiv {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .card {
+        padding: 6px;
+        aspect-ratio: 2.5/4;
+        --blob-size: 110px;
+
+        .cardIcon {
+            .icon {
+                width: 2rem;
+
+                img {
+                    width: 1.3rem;
+                }
+            }
+
+        }
+
+        .card-body {
+            height: 80%;
+
+            .card-title {
+                font-size: .8rem;
+
+                line-height: 1.01rem;
+            }
+
+            .card-text {
+                font-size: 0.6rem;
+                overflow: scroll;
+                text-overflow: ellipsis;
+                scrollbar-width: none;
+            }
+
+        }
+
+    }
+
+}

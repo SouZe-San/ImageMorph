@@ -1,10 +1,7 @@
-// import { useState } from 'react'
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router } from "react-router-dom";
 import MainRoutes from "./routes/MainRoutes";
-// import Auth from "./pages/authentication/Auth";
-// import Home from "./pages/home/Home";
 
 function App() {
   return (
@@ -14,7 +11,7 @@ function App() {
         <main>
           <MainRoutes />
         </main>
-        <footer className=" py-4 flex items-center justify-center px-24">
+        <footer className=" py-4 flex items-center justify-center sm:px-24 p-4">
           For Any quarries contact us at{" "}
           <a target="_blank" href="mailto:somyajit.codemail@gmail.com">
             somyajit.codemail@gmail.com

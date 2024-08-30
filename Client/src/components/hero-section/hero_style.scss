@@ -221,3 +221,95 @@ section#home {
 
 
 }
+
+
+@media screen and (width <=480px) {
+
+    section#home {
+        height: 100vh;
+        padding-top: calc(var(--nav-height) + 3rem);
+    }
+
+    section#home main .mainSection {
+
+        flex-direction: column-reverse;
+        gap: 2rem;
+
+        .small_quote {
+            width: 55%;
+
+            >span.square_brackets {
+                font-size: 2.5rem;
+
+                &:first-child {
+                    top: -25%;
+
+                }
+
+                &:last-child {
+                    bottom: -15%;
+
+
+                }
+
+            }
+
+            p {
+                line-height: 2;
+                font-size: .65rem;
+
+                span {
+                    font-size: 2rem;
+                }
+
+            }
+        }
+
+
+        .hero_heading {
+
+            h1 {
+
+                &:nth-child(1) {
+                    font-size: 3.433rem;
+                    text-align: center;
+                    line-height: .8;
+                }
+
+                &:nth-child(2) {
+                    font-size: 1.776rem;
+                    text-align: center;
+                    line-height: 1.9;
+                }
+
+                &:nth-child(3) {
+                    line-height: .7;
+                    margin-left: 3rem;
+                    font-size: 4rem;
+
+                    span {
+                        font-size: 1.8rem;
+                    }
+                }
+
+                >span.product_name {
+                    font-size: 2rem;
+
+                    span {
+                        padding: 0;
+                        font-size: 1.6rem;
+
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    section#home .plusBtn {
+        padding-top: 6vh;
+    }
+
+
+}

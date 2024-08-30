@@ -8,10 +8,12 @@ import bg from "../../assets/images/Nav-svg/btn-bg.svg";
 import { Link, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import useAuth from "../../hooks/userAuth.hook";
+import MobileNav from "./MobileNav";
 
 gsap.registerPlugin(ScrollTrigger);
 const Navbar = () => {
   const { auth, setAuth } = useAuth();
+  const [isMenuClick, setMenuClick] = useState<boolean>(false);
 
   const navItems = [
     { name: "Home", link: "/" },
@@ -81,8 +83,8 @@ const Navbar = () => {
   });
 
   return (
-    <nav className="px-16" id="navbar" ref={navRef}>
-      <div className="border_nav">
+    <nav className="sm:px-16 px-4" id="navbar" ref={navRef}>
+      <div className="border_nav sm:block hidden">
         <div className="main_nav flex items-center">
           {navItems.map((item, index) => (
             <div
@@ -100,6 +102,16 @@ const Navbar = () => {
           ))}
         </div>
       </div>
+
+      <MobileNav navItems={navItems} isMenuClick={isMenuClick} setMenuClick={setMenuClick} />
+
+      <button
+        className={`menuNavN-button ${isMenuClick ? "active" : ""} sm:hidden flex`}
+        onClick={() => setMenuClick(!isMenuClick)}
+      >
+        <span></span>
+        <span></span>
+      </button>
       <div className="auth_btn_section flex items-center ">
         {auth?.accessToken ? (
           <Link className="text innerPadded_btn profileBtn" to="/profile">

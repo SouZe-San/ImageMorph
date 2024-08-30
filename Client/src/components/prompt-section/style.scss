@@ -17,3 +17,15 @@
         width: 2rem;
     }
 }
+
+@media screen and (width <=480px) {
+    .prompt_section {
+
+
+        >.prompt_text {
+
+            font-size: clamp(11px, 2.5vw, 70%);
+        }
+
+    }
+}

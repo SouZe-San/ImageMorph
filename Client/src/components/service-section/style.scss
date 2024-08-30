@@ -63,6 +63,11 @@
         }
 
         h1:nth-child(2) {
+            font-size: 3.5rem;
+            color: var(--highlight-color2);
+            font-family: "NeueMachina",
+                sans-serif;
+
             img {
                 width: 17rem;
                 position: absolute;
@@ -70,10 +75,6 @@
                 left: 33%;
             }
 
-            font-size: 3.5rem;
-            color: var(--highlight-color2);
-            font-family: "NeueMachina",
-            sans-serif;
 
             span {
                 margin-left: 22rem;
@@ -175,6 +176,134 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+    }
+}
+
+.sectionNavI {
+    width: 15rem;
+    height: 3rem;
+    backdrop-filter: blur(2px);
+    bottom: 4%;
+    border-radius: 6rem;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    width: 100%;
+    gap: 1.8rem;
+
+    .sectionNavItem {
+        transform: scale(.7);
+        width: 1rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--highlight-color1);
+        opacity: .2;
+        transition: transform .2s ease;
+
+    }
+
+    .active {
+        opacity: 1;
+        transform: scale(1);
+        background: var(--highlight-color2);
+    }
+
+}
+
+
+@media screen and (width <=480px) {
+
+    section#services {
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+    }
+
+    .services_poster {
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        overflow: hidden;
+
+        h1.logoTag {
+
+            font-size: 5rem;
+
+            &:nth-child(1) {
+
+                top: 15%;
+                left: 33%;
+            }
+
+            &:nth-child(2) {
+
+                top: 5%;
+                right: 30%;
+            }
+
+            &:nth-child(3) {
+                bottom: 20%;
+                left: 12%;
+            }
+
+
+        }
+
+        .middleBox {
+
+            &:hover {
+                span.underLine {
+                    width: 68% !important;
+                }
+            }
+
+            h1:nth-child(1) {
+
+                font-size: 5.4rem;
+            }
+
+
+            h1:nth-child(2) {
+
+                line-height: .7;
+
+                img {
+                    width: 15rem;
+
+                    top: -50%;
+                    left: 47%;
+                    translate: -50% -35%;
+                }
+
+                span {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    .serviceItemMobile {
+
+        width: 100vw;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+    }
+
+    .horizontal_item_container {
+        flex-direction: column-reverse;
+        width: 100vw;
+
+        .horizontal_left_item {
+            width: 100%;
+
+            >h2 {
+                font-size: 3rem;
+            }
         }
     }
 }

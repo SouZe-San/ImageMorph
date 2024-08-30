@@ -44,3 +44,9 @@ body {
   overflow-x: hidden;
   font-family: "manrope", sans-serif;
 }
+
+@media screen and (width <=480px) {
+  :root {
+    --nav-height: 5rem;
+  }
+}

@@ -117,3 +117,91 @@ nav {
 
     }
 }
+
+.menuNavN-button {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: max(33px, min(13.75vw, 55px));
+    justify-content: center;
+    padding: 0 8px;
+    width: max(33px, min(13.75vw, 55px));
+    background: transparent;
+    border: 1px solid var(--border--color);
+    border-radius: 50%;
+    cursor: pointer;
+
+
+    span {
+        background: var(--highlight-color2);
+        display: block;
+        height: 1px;
+        position: relative;
+        transition: all .3s ease;
+        margin-right: auto;
+
+        &:first-child {
+            margin-bottom: 6px;
+
+            width: max(12px, min(5vw, 20px));
+        }
+
+        &:nth-child(2) {
+
+            width: max(21px, min(8.75vw, 35px));
+        }
+    }
+
+
+    &.active {
+        span:first-child {
+            top: 3px;
+            width: max(21px, min(8.75vw, 35px));
+            transform: rotate(-45deg);
+        }
+
+        span:nth-child(2) {
+            top: -4px;
+            transform: rotate(45deg);
+        }
+    }
+
+}
+
+
+
+
+@media screen and (width <=480px) {
+
+    nav .auth_btn_section {
+        width: 14rem;
+        justify-content: space-between;
+
+        .text {
+            padding: 0rem 1.4rem;
+            font-size: 13px;
+
+        }
+
+
+        .auth_icon {
+
+            padding: .2rem;
+
+
+            .icon {
+                width: 1.1em;
+            }
+
+
+            // background: $btnBlurBg;
+        }
+
+        img {
+            width: 93%;
+        }
+
+    }
+
+
+}

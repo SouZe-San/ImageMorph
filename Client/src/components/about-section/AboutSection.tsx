@@ -44,18 +44,18 @@ const AboutArrays = {
 
 const AboutSection = () => {
   return (
-    <section id="about" className="w-full px-8 pb-8 about_section relative ">
+    <section id="about" className="w-full sm:px-8 p-4 pb-8 about_section relative ">
       <header className="text-6xl absolute">
         <h1>
           {" "}
-          <span className="ml-36"></span> A Little
+          <span className="sm:ml-36 ml-8"></span> A Little
         </h1>
         <h1>About Us</h1>
       </header>
 
       <div className="card_container mb-8">
         <div className="card_section">
-          <div className="fakeDiv col-span-3"></div>
+          <div className="fakeDiv sm:col-span-3 col-span-1"></div>
           {AboutArrays[1].map((card, index) => (
             <Card key={index} icon={card.icon} title={card.title} text={card.text} />
           ))}

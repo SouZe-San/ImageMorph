@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative  overflow-hidden ">
       <div className="blurBg"></div>
-      <main className="px-16">
+      <main className="sm:px-16 px-2">
         <div className="mainSection flex w-full items-end ">
           <div className="small_quote relative">
             <span className="square_brackets absolute">[</span>
@@ -18,17 +18,17 @@ const HeroSection = () => {
             <span className="square_brackets absolute">]</span>
           </div>
 
-          <div className="hero_heading pl-16">
-            <h1 className="text-9xl font-bold">
-              <span className="ml-16"></span>Manifest Your{" "}
+          <div className="hero_heading sm:pl-16">
+            <h1 className="sm:text-9xl font-bold">
+              <span className="sm:ml-16 ml-4"></span>Manifest Your{" "}
             </h1>
-            <h1 className="text-7xl font-bold">
+            <h1 className="sm:text-7xl font-bold">
               Imagination{" "}
               <span className="product_name">
                 [<span className="px-4">ImageMorph</span>]
               </span>
             </h1>
-            <h1 className="text-8xl font-bold">
+            <h1 className="sm:text-8xl font-bold">
               Turns <span>Ideas into Reality !!</span>
             </h1>
           </div>

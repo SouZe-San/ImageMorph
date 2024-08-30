@@ -52,3 +52,10 @@ footer {
     color: var(--highlight-color1);
   }
 }
+
+@media screen and (width <=480px) {
+  footer {
+    padding: 1rem 0;
+    font-size: 0.8rem;
+  }
+}

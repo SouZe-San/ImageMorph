@@ -7,7 +7,7 @@ const ItemsBlock = (props: IItemsProps[]) => {
       <div className="rows">
         <Items item={props[0]} />
       </div>
-      <div className="rows grid grid-cols-2 gap-4">
+      <div className="rows grid sm:grid-cols-2 grid-cols-1 gap-4">
         <Items item={props[1]} />
         <Items item={props[2]} />
       </div>
