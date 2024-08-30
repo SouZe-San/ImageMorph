@@ -1,4 +1,3 @@
-// import React from 'react'
 import { useState } from "react";
 
 import "./styles.scss";
@@ -11,7 +10,7 @@ const Page = () => {
     <section className="ai_services">
       <header>
         <h1 className="">Craft visions</h1>
-        <h1 className="ml-24">forge creations</h1>
+        <h1 className="sm:ml-24 ml-20">forge creations</h1>
       </header>
       <div className="btn_section flex justify-end items-center gap-6 py-4">
         <div

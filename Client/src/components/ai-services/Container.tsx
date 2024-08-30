@@ -95,16 +95,29 @@ const Container = ({ apiType }: { apiType: number }) => {
     <section className="ai-user-section">
       <div className="section-outer-left-section grow flex flex-col gap-8">
         <div className="prompt-box w-full">
-          <input
-            type="text"
-            name="input"
-            value={prompt}
-            id="input"
-            placeholder="Your Prompt..."
-            onChange={(e) => {
-              setPrompt(e.target.value);
-            }}
-          />
+          {window.innerWidth > 500 ? (
+            <input
+              type="text"
+              name="input"
+              value={prompt}
+              id="input"
+              placeholder="Your Prompt..."
+              onChange={(e) => {
+                setPrompt(e.target.value);
+              }}
+            />
+          ) : (
+            <textarea
+              name="input"
+              rows={5}
+              value={prompt}
+              id="input"
+              placeholder="Your Prompt..."
+              onChange={(e) => {
+                setPrompt(e.target.value);
+              }}
+            />
+          )}
         </div>
         <div className="image-in-out-section w-full flex gap-8">
           <aside
@@ -142,6 +155,7 @@ const Container = ({ apiType }: { apiType: number }) => {
           </div>
         </div>
       </div>
+      {window.innerWidth <= 480 && <div className="horizontal_divider"></div>}
       <aside className="section-outer-right-section grow-0 flex flex-col">
         <button onClick={onSubmit}>Generate</button>
 

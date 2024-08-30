@@ -89,3 +89,39 @@
     margin: 0 1rem;
     background: linear-gradient(90deg, #ffffff0d 3%, #b7ff1836 48%, #ffffff0d 97%);
 }
+
+
+@media screen and (width <=480px) {
+    .ai_services {
+        padding: 1rem;
+        padding-top: calc(var(--nav-height));
+
+
+        header {
+            h1:nth-child(1) {
+                font-size: 3.5rem;
+            }
+
+            h1:nth-child(2) {
+                font-size: 4em;
+            }
+        }
+
+        .btn_section {
+            .btn {
+                width: auto;
+
+                button {
+                    padding: 5px;
+                    font-size: .8rem;
+
+                    &:hover {
+                        color: rgb(0, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+
+
+}
