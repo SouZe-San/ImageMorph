@@ -240,3 +240,51 @@ $boxWidth : 55%;
 
     }
 }
+
+@media screen and (width <=480px) {
+    $boxWidth : calc((100% - 1rem));
+
+    .authSection {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sign-section-right-form_section {
+        padding-top: calc(var(--nav-height) + 1rem);
+        padding-left: 1rem;
+
+        .headTag {
+            >h1 {
+                font-size: 3rem;
+                line-height: 1;
+            }
+        }
+
+        .formPart {
+            width: calc((100% - 1rem));
+
+            form .submitBtn button {
+                width: 40%;
+                height: 2.5em;
+            }
+        }
+
+        .divider {
+            justify-content: center;
+
+            span {
+                width: 30%;
+            }
+        }
+
+        .alternative_connection {
+            width: calc((100% - 1rem));
+            justify-content: space-evenly;
+
+            .btnBox {
+                padding: .7rem 0;
+                width: 40%;
+            }
+        }
+    }
+}

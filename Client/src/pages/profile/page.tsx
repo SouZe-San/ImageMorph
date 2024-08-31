@@ -4,6 +4,7 @@ import "./style.scss";
 import logOutBtn from "../../assets/icons/auth/logout-icon.svg";
 import { currentUser, logOut } from "../../api/axios";
 import { useNavigate } from "react-router-dom";
+import EditableHeadline from "../../components/profile/EditableHedline";
 
 interface IUserDetails {
   username: string;
@@ -50,10 +51,13 @@ const Page = () => {
     }
   };
   return (
-    <section className="profileSection px-20">
+    <section className="profileSection sm:px-20 px-4">
       <div className="headerTag">
         <h1>
-          Welcome to our playground! <span>{auth.loggedInUser}</span>
+          Welcome to
+          {window.innerWidth <= 480 ? <br /> : null}
+          our
+          {window.innerWidth <= 480 ? <br /> : null}playground! <span>{auth.loggedInUser}</span>
         </h1>
         <h3>Let's Explore and create!</h3>
       </div>
@@ -61,7 +65,9 @@ const Page = () => {
       <div className="userCard flex gap-4 mt-16">
         <div className="userinfo relative grow-0">
           <div className="userDetails">
-            <div className="circle">{auth.loggedInUser?.charAt(0).toUpperCase()}</div>
+            <div className="circle">
+              <span>{auth.loggedInUser?.charAt(0).toUpperCase()}</span>
+            </div>
             <div className="info mt-8">
               <h2>
                 UserName : <span>{user.username}</span>
@@ -87,8 +93,7 @@ const Page = () => {
           </div>
         </div>
         <div className="userGallery grow relative">
-          <h2>Collection</h2>
-
+          <EditableHeadline />
           <div className="absolute backTag">Currently None</div>
         </div>
       </div>

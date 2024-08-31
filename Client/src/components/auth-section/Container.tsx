@@ -17,7 +17,7 @@ const Container = () => {
   return (
     <>
       <FormSection setIsSignIn={setIsSignIn} isSignIn={isSignIn} />
-      <div className="sign-section-right-image_section w-2/5 grow-0 ">
+      <div className="sign-section-right-image_section sm:w-2/5 grow-0 ">
         <img src={isSignIn ? signInImage : logInImage} alt="sign-in-section-image" />
       </div>
     </>
