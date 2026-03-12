@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./nav_style.scss";
-import userIcon from "../../assets/icons/user-icon01.svg";
+// import userIcon from "../../assets/icons/user-icon01.svg";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -103,7 +103,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      <MobileNav navItems={navItems} isMenuClick={isMenuClick} setMenuClick={setMenuClick} />
+      <MobileNav
+        navItems={navItems}
+        isMenuClick={isMenuClick}
+        setMenuClick={setMenuClick}
+      />
 
       <button
         className={`menuNavN-button ${isMenuClick ? "active" : ""} sm:hidden flex`}
@@ -122,10 +126,10 @@ const Navbar = () => {
             Become A Member
           </Link>
         )}
-        <div className="auth_icon ">
+        {/*<div className="auth_icon ">
           <img src={userIcon} className="icon" loading="lazy" alt="Icon" />
-        </div>
-        <img src={bg} className="absolute -z-[1]" alt="" />
+        </div>*/}
+        <img src={bg} className="-z-[1]" alt="" loading="lazy" />
       </div>
     </nav>
   );

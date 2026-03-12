@@ -1,7 +1,11 @@
 import { useState, ChangeEvent, useEffect } from "react";
 import "./style.scss";
 // import { useSearchParams } from "react-router-dom";
-import { imageGeneration, imageModificationGeneration } from "../../utils/image.utils";
+import {
+  imageGeneration,
+  imageModificationGeneration,
+  sketch2imageGeneration,
+} from "../../utils/image.utils";
 
 interface IText2Image {
   prompt: string;
@@ -10,7 +14,14 @@ interface IText2Image {
   negativePrompt?: string;
 }
 
-const stylePreset: string[] = ["anime", "comic-book", "digital-art", "fantasy-art"];
+import loaderGif from "../../assets/images/loader.gif";
+
+const stylePreset: string[] = [
+  "anime",
+  "comic-book",
+  "digital-art",
+  "fantasy-art",
+];
 const imageRatios: string[] = ["1:1", "3:2", "4:5", "9:16", "16:9"];
 
 const Container = ({ apiType }: { apiType: number }) => {
@@ -18,13 +29,20 @@ const Container = ({ apiType }: { apiType: number }) => {
   // const [searchParams] = useSearchParams();
   const [styleInd, setStyleInd] = useState<number | null>(null);
   const [rationInd, setRatioInd] = useState<number>(0);
-  const [willTake, makeDecision] = useState<boolean[]>([false, false, false, false]);
-  const [selectedImage, setSelectedImage] = useState<string | ArrayBuffer | null>(null);
+  const [willTake, makeDecision] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [selectedImage, setSelectedImage] = useState<
+    string | ArrayBuffer | null
+  >(null);
   const [prompt, setPrompt] = useState<string>("");
   const [negativePrompt, setNegativePrompt] = useState<string>("");
   const [inputImage, setInputImage] = useState<File | null>(null);
   const [outImageLink, setImageLink] = useState<string | null>(null);
-
+  const [loader, setLoader] = useState<boolean>(false);
   useEffect(() => {
     setPrompt("");
     setNegativePrompt("");
@@ -48,7 +66,7 @@ const Container = ({ apiType }: { apiType: number }) => {
       alert("Please enter a prompt");
       return;
     }
-
+    setLoader(true);
     if (apiType === 0) {
       // Text to Image
       const promptBody: IText2Image = {
@@ -63,14 +81,14 @@ const Container = ({ apiType }: { apiType: number }) => {
       if (negativePrompt !== "") {
         promptBody.negativePrompt = negativePrompt;
       }
-
       const imageLink = await imageGeneration(promptBody);
+      setLoader(false);
       if (imageLink) {
         setImageLink(imageLink);
       }
     }
 
-    if (apiType === 1) {
+    if (apiType === 1 || apiType === 2) {
       // Image to Image
       if (!inputImage) {
         alert("Please select a file first.");
@@ -83,8 +101,11 @@ const Container = ({ apiType }: { apiType: number }) => {
       if (negativePrompt !== "") {
         inputData.append("negativePrompt", negativePrompt);
       }
-
-      const imageLink = await imageModificationGeneration(inputData);
+      const imageLink =
+        apiType === 1
+          ? await imageModificationGeneration(inputData)
+          : await sketch2imageGeneration(inputData);
+      setLoader(false);
       if (imageLink) {
         setImageLink(imageLink);
       }
@@ -93,7 +114,7 @@ const Container = ({ apiType }: { apiType: number }) => {
 
   return (
     <section className="ai-user-section">
-      <div className="section-outer-left-section grow flex flex-col gap-8">
+      <div className="section-outer-left-section grow flex flex-col gap-3">
         <div className="prompt-box w-full">
           {window.innerWidth > 500 ? (
             <input
@@ -126,7 +147,11 @@ const Container = ({ apiType }: { apiType: number }) => {
           >
             <div
               className="image-add-box relative"
-              style={apiType === 0 ? { borderColor: "transparent", display: "none" } : {}}
+              style={
+                apiType === 0
+                  ? { borderColor: "transparent", display: "none" }
+                  : {}
+              }
             >
               <input
                 type="file"
@@ -136,7 +161,11 @@ const Container = ({ apiType }: { apiType: number }) => {
                 onChange={handleImageChange}
               />
               {selectedImage && (
-                <img src={selectedImage as string} alt="Selected" className="absolute top-0" />
+                <img
+                  src={selectedImage as string}
+                  alt="Selected"
+                  className="absolute top-0"
+                />
               )}
 
               <h1 className="tag text-center absolute">
@@ -145,12 +174,19 @@ const Container = ({ apiType }: { apiType: number }) => {
             </div>
           </aside>
           <div className="section-middle-box flex-grow">
-            <h1>
-              <span className="info-icon">?</span> <br /> Image will appear here
-            </h1>
-
+            {loader ? (
+              <img src={loaderGif} className="max-w-20" alt="comingImage" />
+            ) : (
+              <h1>
+                <span className="info-icon">?_?</span> <br /> Image will appear
+                here
+              </h1>
+            )}
             {outImageLink && (
-              <img src={`http://localhost:5000/${outImageLink}`} alt="comingImage" />
+              <img
+                src={`http://localhost:5000/${outImageLink}`}
+                alt="comingImage"
+              />
             )}
           </div>
         </div>
@@ -184,7 +220,12 @@ const Container = ({ apiType }: { apiType: number }) => {
           <div className="choice-input ">
             <label htmlFor="negativePrompt" className=" flex flex-col gap-2">
               <div className="input order-2">
-                <input type="text" name="seed" id="seed" placeholder="Default 0" />
+                <input
+                  type="text"
+                  name="seed"
+                  id="seed"
+                  placeholder="Default 0"
+                />
               </div>
               <h5 className="order-1">
                 Seed <span className="info-icon">?</span>
@@ -214,18 +255,26 @@ const Container = ({ apiType }: { apiType: number }) => {
           <div className="choice-input ">
             <h5 className="">
               Style Preset <span className="info-icon">?</span>
-              <span className="hidden-text">Guides the image model towards a particular style</span>
+              <span className="hidden-text">
+                Guides the image model towards a particular style
+              </span>
             </h5>
             <div className="choice-items" style={{ gap: "1rem 1.4rem" }}>
               {stylePreset.map((style, index) => (
                 <div
                   key={index}
                   className={`item extra-space-item ${
-                    styleInd === index ? (willTake[index] ? "selected-item" : "") : ""
+                    styleInd === index
+                      ? willTake[index]
+                        ? "selected-item"
+                        : ""
+                      : ""
                   }`}
                   onClick={() => {
                     setStyleInd(index);
-                    makeDecision((prev) => prev.map((_, i) => (i === index ? !prev[i] : false)));
+                    makeDecision((prev) =>
+                      prev.map((_, i) => (i === index ? !prev[i] : false)),
+                    );
                   }}
                 >
                   {style}

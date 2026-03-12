@@ -1,17 +1,16 @@
-$btnBlurBg : #ffffff62;
+$btnBlurBg: #ffffff62;
 
 @mixin inner_roundedShaped($padding) {
     padding: $padding;
     background: $btnBlurBg;
     backdrop-filter: blur(1.5rem);
-    border-radius: calc(7rem - .5rem);
+    border-radius: calc(7rem - 0.5rem);
 }
-
 
 .innerPadded_btn {
     border-radius: 7rem;
     // padding: .5rem 1.4rem;
-    padding: .8rem 1.4rem;
+    padding: 0.8rem 1.4rem;
 }
 
 .profileBtn {
@@ -31,15 +30,14 @@ nav {
     transition: top 600ms ease;
 
     .border_nav {
-
-        backdrop-filter: blur(.6rem);
-        padding: .5rem;
+        backdrop-filter: blur(0.6rem);
+        padding: 0.5rem;
         border-radius: 7rem;
         border: 1px solid var(--border--color);
 
         .main_nav {
             // font-size: 1.3rem;
-            gap: .2rem;
+            gap: 0.2rem;
 
             .active_NavLink {
                 background: $btnBlurBg;
@@ -53,7 +51,7 @@ nav {
                 overflow: hidden;
 
                 &::before {
-                    transition: width .3s ease-in-out;
+                    transition: width 0.3s ease-in-out;
                     content: " ";
                     position: absolute;
                     width: 0%;
@@ -68,17 +66,13 @@ nav {
                     &::before {
                         width: 100%;
                     }
-
                 }
             }
         }
-
     }
 
-
-
     .auth_btn_section {
-        backdrop-filter: blur(.6rem);
+        backdrop-filter: blur(0.6rem);
         gap: 1rem;
         padding: 0.5rem;
         border-radius: 7rem;
@@ -97,24 +91,22 @@ nav {
 
         .text {
             transition: text-shadow 770ms ease-in-out;
-            padding: 0.8rem 3rem;
+            padding: 0.8rem 2rem;
             font-family: "Manrope_bold", sans-serif;
+            position: absolute;
         }
 
-
-        .auth_icon {
-            padding: .8rem;
+        /* .auth_icon {
+            padding: 0.8rem;
             border-radius: 7rem;
-            transition: all .3s ease-in-out;
+            transition: all 0.3s ease-in-out;
 
             .icon {
                 width: 1.2em;
             }
 
-
             // background: $btnBlurBg;
-        }
-
+        } */
     }
 }
 
@@ -131,13 +123,12 @@ nav {
     border-radius: 50%;
     cursor: pointer;
 
-
     span {
         background: var(--highlight-color2);
         display: block;
         height: 1px;
         position: relative;
-        transition: all .3s ease;
+        transition: all 0.3s ease;
         margin-right: auto;
 
         &:first-child {
@@ -147,11 +138,9 @@ nav {
         }
 
         &:nth-child(2) {
-
             width: max(21px, min(8.75vw, 35px));
         }
     }
-
 
     &.active {
         span:first-child {
@@ -165,14 +154,9 @@ nav {
             transform: rotate(45deg);
         }
     }
-
 }
 
-
-
-
 @media screen and (width <=480px) {
-
     nav .auth_btn_section {
         width: 14rem;
         justify-content: space-between;
@@ -180,28 +164,16 @@ nav {
         .text {
             padding: 0rem 1.4rem;
             font-size: 13px;
-
         }
 
-
         .auth_icon {
-
-            padding: .2rem;
-
+            padding: 0.2rem;
 
             .icon {
                 width: 1.1em;
             }
 
-
             // background: $btnBlurBg;
         }
-
-        img {
-            width: 93%;
-        }
-
     }
-
-
 }
