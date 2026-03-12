@@ -47,7 +47,7 @@ const generateAccessAndRefreshTokens = async (userId: Types.ObjectId) => {
     console.log("error from generateAccess: ", error);
     throw new ApiError(
       resStatus.InternalServerError,
-      "Something went wrong while generating access token"
+      "Something went wrong while generating access token",
     );
   }
 };
@@ -69,7 +69,7 @@ const userRegister = async (req: Request, res: Response) => {
     if ([username, email, password].some((field) => field?.trim() === "")) {
       throw new ApiError(
         resStatus.InvalidInput,
-        "All fields are required , Some of them are empty"
+        "All fields are required , Some of them are empty",
       );
     }
 
@@ -90,11 +90,16 @@ const userRegister = async (req: Request, res: Response) => {
     });
 
     if (existedUser) {
-      return res
+      res
         .status(resStatus.Conflict)
         .json(
-          new ApiResponse(resStatus.Conflict, "User, You already exist !! Why again ?", existedUser)
+          new ApiResponse(
+            resStatus.Conflict,
+            "User, You already exist !! Why again ?",
+            existedUser,
+          ),
         );
+      return;
     }
 
     // create a new user
@@ -105,22 +110,24 @@ const userRegister = async (req: Request, res: Response) => {
     });
 
     // check if the user is created successfully
-    const createdUser = await User.findById(user._id).select("-password -refreshToken");
+    const createdUser = await User.findById(user._id).select(
+      "-password -refreshToken",
+    );
 
     // if not created throw an error
     if (!createdUser) {
       throw new ApiError(
         resStatus.InternalServerError,
-        "Something went wrong while registering the user"
+        "Something went wrong while registering the user",
       );
     }
 
     // Ultimately send the response as success
-    res
-      .status(resStatus.Created)
-      .json(
-        new ApiResponse(resStatus.Success, "User registered Successfully", { data: "All Green !!" })
-      );
+    res.status(resStatus.Created).json(
+      new ApiResponse(resStatus.Success, "User registered Successfully", {
+        data: "All Green !!",
+      }),
+    );
   } catch (error) {
     // if any error occurs send the error response
     console.log("error from register: ", error);
@@ -128,7 +135,9 @@ const userRegister = async (req: Request, res: Response) => {
       const { statusCode, message } = error;
       return res.status(statusCode).json({ error: message });
     }
-    res.status(resStatus.InternalServerError).json({ error: "Something went Wrong in Server" });
+    res
+      .status(resStatus.InternalServerError)
+      .json({ error: "Something went Wrong in Server" });
   }
 };
 
@@ -148,7 +157,7 @@ const userLogIn = async (req: Request, res: Response) => {
     if ([email, password].some((field) => field?.trim() === "")) {
       throw new ApiError(
         resStatus.InvalidInput,
-        "All fields are required , Some of them are empty"
+        "All fields are required , Some of them are empty",
       );
     }
 
@@ -178,9 +187,13 @@ const userLogIn = async (req: Request, res: Response) => {
     }
 
     // generate the access token
-    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+      user._id,
+    );
 
-    const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
+    const loggedInUser = await User.findById(user._id).select(
+      "-password -refreshToken",
+    );
 
     // send the response
     res
@@ -192,22 +205,25 @@ const userLogIn = async (req: Request, res: Response) => {
           loggedInUser,
           accessToken,
           refreshToken,
-        })
+        }),
       );
   } catch (error) {
     console.log("error from Sign in : ", error);
     if (error instanceof ApiError) {
       const { statusCode, message } = error;
-      return res.status(statusCode).json({ error: message });
+      res.status(statusCode).json({ error: message });
+      return;
     }
-    res.status(resStatus.InternalServerError).json({ error: "Something went Wrong in Server" });
+    res
+      .status(resStatus.InternalServerError)
+      .json({ error: "Something went Wrong in Server" });
   }
 };
 
 /*
 !  * Log Out a user
   * @description  this function will activate after passing the middleware , then it search the user in db and then delete the refresh token
-  * @param {Request} 
+  * @param {Request}
   * @param {Response} res
   * @returns {Promise<Response>}
   * @throws {ApiError}
@@ -223,7 +239,7 @@ const logoutUser = async (req: NUsers.RequestWithUser, res: Response) => {
       },
       {
         new: true,
-      }
+      },
     );
 
     return res
@@ -235,14 +251,17 @@ const logoutUser = async (req: NUsers.RequestWithUser, res: Response) => {
     console.log("error from Log Out : ", error);
     if (error instanceof ApiError) {
       const { statusCode, message } = error;
-      return res.status(statusCode).json({ error: message });
+      res.status(statusCode).json({ error: message });
+      return;
     }
-    res.status(resStatus.InternalServerError).json({ error: "Something went Wrong in Server" });
+    res
+      .status(resStatus.InternalServerError)
+      .json({ error: "Something went Wrong in Server" });
   }
 };
 
 /*
-!  * Refresh Access Token 
+!  * Refresh Access Token
   * @description  Get new access token using refresh token
   * @param {Request} req - { email: string, username: string, password: string}
   * @param {Response} res
@@ -251,7 +270,8 @@ const logoutUser = async (req: NUsers.RequestWithUser, res: Response) => {
 */
 const refreshAccessToken = async (req: Request, res: Response) => {
   try {
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
+    const incomingRefreshToken =
+      req.cookies.refreshToken || req.body.refreshToken;
 
     if (!incomingRefreshToken) {
       throw new ApiError(resStatus.Unauthorized, "unauthorized request");
@@ -259,14 +279,20 @@ const refreshAccessToken = async (req: Request, res: Response) => {
 
     try {
       if (!process.env.REFRESH_TOKEN_SECRET) {
-        throw new ApiError(resStatus.Unauthorized, "REFRESH_TOKEN_SECRET Could not find");
+        throw new ApiError(
+          resStatus.Unauthorized,
+          "REFRESH_TOKEN_SECRET Could not find",
+        );
       }
-      const decodedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET);
+      const decodedToken = jwt.verify(
+        incomingRefreshToken,
+        process.env.REFRESH_TOKEN_SECRET,
+      );
 
       if (typeof decodedToken === "string") {
         throw new ApiError(
           resStatus.Unauthorized,
-          "Jwt payload come as String | instead of JWT payload"
+          "Jwt payload come as String | instead of JWT payload",
         );
       }
       const user = await User.findById(decodedToken?._id);
@@ -276,13 +302,17 @@ const refreshAccessToken = async (req: Request, res: Response) => {
       }
 
       if (incomingRefreshToken !== user?.refreshToken) {
-        throw new ApiError(resStatus.Unauthorized, "Refresh token is expired or used");
+        throw new ApiError(
+          resStatus.Unauthorized,
+          "Refresh token is expired or used",
+        );
       }
 
-      const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
+      const { accessToken, refreshToken } =
+        await generateAccessAndRefreshTokens(user._id);
       const newRefreshToken = refreshToken;
 
-      return res
+      res
         .status(resStatus.Created)
         .cookie("accessToken", accessToken, cookieOption)
         .cookie("refreshToken", newRefreshToken, cookieOption)
@@ -290,7 +320,7 @@ const refreshAccessToken = async (req: Request, res: Response) => {
           new ApiResponse(resStatus.Success, "Access token refreshed", {
             accessToken,
             refreshToken: newRefreshToken,
-          })
+          }),
         );
     } catch (error) {
       throw new ApiError(resStatus.Forbidden, "Invalid refresh token");
@@ -299,15 +329,18 @@ const refreshAccessToken = async (req: Request, res: Response) => {
     console.log("error from refreshAccess Token creating time : ", error);
     if (error instanceof ApiError) {
       const { statusCode, message } = error;
-      return res.status(statusCode).json({ error: message });
+      res.status(statusCode).json({ error: message });
+      return;
     }
-    res.status(resStatus.InternalServerError).json({ error: "Something went Wrong in Server" });
+    res
+      .status(resStatus.InternalServerError)
+      .json({ error: "Something went Wrong in Server" });
   }
 };
 
 /*
 !  * getCurrentUser
- * @description  After verify the user in middleware, 
+ * @description  After verify the user in middleware,
   * @param {Request} req - { email: string, username: string, password: string}
   * @param {Response} res
   * @returns {Promise<void>}
@@ -316,17 +349,32 @@ const refreshAccessToken = async (req: Request, res: Response) => {
 
 const getCurrentUser = async (req: NUsers.RequestWithUser, res: Response) => {
   try {
-    return res
+    res
       .status(resStatus.Success)
-      .json(new ApiResponse(resStatus.Success, "User fetched successfully", req.user));
+      .json(
+        new ApiResponse(
+          resStatus.Success,
+          "User fetched successfully",
+          req.user,
+        ),
+      );
   } catch (error) {
     console.log("error from get User Info : ", error);
     if (error instanceof ApiError) {
       const { statusCode, message } = error;
-      return res.status(statusCode).json({ error: message });
+      res.status(statusCode).json({ error: message });
+      return;
     }
-    res.status(resStatus.InternalServerError).json({ error: "Something went Wrong in Server" });
+    res
+      .status(resStatus.InternalServerError)
+      .json({ error: "Something went Wrong in Server" });
   }
 };
 
-export { userRegister, userLogIn, logoutUser, getCurrentUser, refreshAccessToken };
+export {
+  userRegister,
+  userLogIn,
+  logoutUser,
+  getCurrentUser,
+  refreshAccessToken,
+};

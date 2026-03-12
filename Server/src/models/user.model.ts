@@ -1,6 +1,6 @@
 import mongoose, { Schema, Types } from "mongoose";
 
-import jwt from "jsonwebtoken";
+import jwt, { type Secret } from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 import { NUser_model } from "./types";
@@ -26,7 +26,7 @@ const userSchema = new Schema<NUser_model.IUserModel>(
       type: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 /*
@@ -41,7 +41,9 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.isPasswordCorrect = async function (password: string): Promise<boolean> {
+userSchema.methods.isPasswordCorrect = async function (
+  password: string,
+): Promise<boolean> {
   return await bcrypt.compare(password, this.password);
 };
 
@@ -53,10 +55,9 @@ userSchema.methods.generateAccessToken = function () {
   };
 
   if (process.env.ACCESS_TOKEN_SECRET) {
-    const JwtSecret: string = process.env.ACCESS_TOKEN_SECRET;
-
+    const JwtSecret: Secret = process.env.ACCESS_TOKEN_SECRET;
     return jwt.sign(payload, JwtSecret, {
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+      expiresIn: "7d",
     });
   }
 };
@@ -67,7 +68,7 @@ userSchema.methods.generateRefreshToken = function () {
 
   if (process.env.REFRESH_TOKEN_SECRET) {
     return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+      expiresIn: "2d",
     });
   }
 };

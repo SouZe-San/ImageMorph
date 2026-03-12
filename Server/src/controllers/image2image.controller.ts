@@ -5,25 +5,33 @@ import { ApiError } from "../utils/ApiError";
 import { ApiResponse } from "../utils/ApiResponse";
 import { Request, Response } from "express";
 import { resStatus } from "../utils/responseStatus";
-import { getDataFolderPath, persistData, scheduleFileDeletion } from "../utils/file.utils";
+import {
+  getDataFolderPath,
+  persistData,
+  scheduleFileDeletion,
+} from "../utils/file.utils";
 import { isString } from "../utils/image.utils";
 import { NImages } from "./types";
-import { ASSETS_FOLDER_FOR_IMG_MODIFICATION, STABILITY_ENGINE_ID } from "../constant";
+import {
+  ASSETS_FOLDER_FOR_IMG_MODIFICATION,
+  STABILITY_ENGINE_ID,
+} from "../constant";
 
 const image2imageConvert = async (req: Request, res: Response) => {
   const apiHost = process.env.STABILITY_API_HOST;
   const apiKey = process.env.STABILITY_API_KEY;
   const engineId = STABILITY_ENGINE_ID;
   try {
-    if (!apiKey) throw new ApiError(resStatus.BadGateway, "Missing Stability API key.");
+    if (!apiKey)
+      throw new ApiError(resStatus.BadGateway, "Missing Stability API key.");
 
     // take details from request
-    const { prompt, stylePreset, negativePrompt } = req.body;
+    const { prompt, stylePreset, negativePrompt, ratio } = req.body;
 
     if ([prompt].some((field) => field?.trim() === "")) {
       throw new ApiError(
         resStatus.InvalidInput,
-        "prompt & ratio must Present , Some of them are empty"
+        "prompt & ratio must Present , Some of them are empty",
       );
     }
 
@@ -38,28 +46,23 @@ const image2imageConvert = async (req: Request, res: Response) => {
 
     // Optional Parameters
     const style_preset = stylePreset || "enhance";
-    console.log("style_preset : ", imageLocalPath);
+    console.log("style_preset : ", style_preset);
 
     // Creating request body
     const formData = new FormData();
-    formData.append("init_image", fs.createReadStream(imageLocalPath));
-    formData.append("init_image_mode", "IMAGE_STRENGTH");
-    formData.append("image_strength", "0.35");
-    formData.append("text_prompts[0][text]", prompt);
-    formData.append("text_prompts[0][weight]", 1);
+    formData.append("image", fs.createReadStream(imageLocalPath));
+    formData.append("prompt", prompt);
     if (negativePrompt) {
-      formData.append("text_prompts[1][text]", negativePrompt);
-      formData.append("text_prompts[1][weight]", -1);
+      formData.append("negative_prompt", negativePrompt);
     }
-    formData.append("cfg_scale", "7");
-    formData.append("samples", "1");
-    formData.append("steps", "30");
+    if (ratio) {
+      formData.append("aspect_ratio", ratio);
+    }
     formData.append("style_preset", style_preset);
 
-    const response = await fetch(`${apiHost}/v1/generation/${engineId}/image-to-image`, {
+    const response = await fetch(`${apiHost}/control/style`, {
       method: "POST",
       headers: {
-        // ...formData.getHeaders(),
         Accept: "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
@@ -72,13 +75,9 @@ const image2imageConvert = async (req: Request, res: Response) => {
     }
     const responseJSON = (await response.json()) as NImages.GenerationResponse;
 
-    // responseJSON.artifacts.forEach((image, index) => {
-    //   fs.writeFileSync(`out/v1_img2img_${index}.png`, Buffer.from(image.base64, "base64"));
-    // });
-
     const filePath = `${getDataFolderPath(ASSETS_FOLDER_FOR_IMG_MODIFICATION)}/${Date.now()}.png`;
 
-    persistData(Buffer.from(responseJSON.artifacts[0].base64, "base64"), filePath);
+    persistData(Buffer.from(responseJSON.image, "base64"), filePath);
 
     const responsePath = `temp/${ASSETS_FOLDER_FOR_IMG_MODIFICATION}${
       filePath.split(ASSETS_FOLDER_FOR_IMG_MODIFICATION)[1]
@@ -87,16 +86,21 @@ const image2imageConvert = async (req: Request, res: Response) => {
 
     scheduleFileDeletion(filePath);
 
-    res
-      .status(resStatus.Created)
-      .json(new ApiResponse(resStatus.Success, "Image Modified", { link: responsePath }));
+    res.status(resStatus.Created).json(
+      new ApiResponse(resStatus.Success, "Image Modified", {
+        link: responsePath,
+      }),
+    );
   } catch (error) {
     console.log("error from Image-2-image convert : ", error);
     if (error instanceof ApiError) {
       const { statusCode, message } = error;
-      return res.status(statusCode).json({ error: message });
+      res.status(statusCode).json({ error: message });
+      return;
     }
-    res.status(resStatus.InternalServerError).json({ error: "Something went Wrong in Server" });
+    res
+      .status(resStatus.InternalServerError)
+      .json({ error: "Something went Wrong in Server" });
   } finally {
     if (req.file?.path) {
       fs.unlink(req.file.path, (err) => {

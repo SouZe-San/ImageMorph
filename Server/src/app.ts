@@ -19,10 +19,9 @@ app.use(cookieParser());
 import userRoutes from "./routes/user.routes";
 import aiRouter from "./routes/ai.routes";
 //routes declaration
-// app.use("/image-morph/api/v1/", (_req, res) => {
-//     res.send("Welcome to Image Morph API v1 🚀");
-//     }
-// );
+app.get("/image-morph/api/v1", (_req, res) => {
+  res.send("Welcome to Image Morph API v1 🚀");
+});
 app.use("/image-morph/api/v1/user", userRoutes);
 app.use("/image-morph/api/v1/image", aiRouter);
 
